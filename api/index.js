@@ -314,3 +314,11 @@ app.patch('/api/bookings/:id/status', async (req, res) => {
 });
 
 module.exports = app;
+
+// If this file is run directly, start the server for local development
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server is running for local development on http://localhost:${PORT}`);
+  });
+}
