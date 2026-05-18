@@ -1596,16 +1596,10 @@
                 formMessage.textContent = '✓ Thank you! Your booking request has been received. We\'ll contact you shortly via email.';
                 formMessage.className = 'block p-4 rounded-xl text-sm md:text-base bg-tertiary-fixed text-on-tertiary-fixed';
 
-                // Reset form after 3 seconds
+                // Redirect to confirmation page
                 setTimeout(() => {
-                  submitBtn.classList.remove('success-pulse');
-                  btnText.textContent = 'Book My Service';
-                  btnIcon.textContent = 'arrow_forward';
-                  submitBtn.style.background = '';
-                  submitBtn.disabled = false;
-                  bookingForm.reset();
-                  formMessage.className = 'hidden';
-                }, 3000);
+                  window.location.href = `confrimBooking.html?id=${data.bookingId}`;
+                }, 1000);
               } else {
                 throw new Error(data.message || 'Submission failed');
               }
@@ -2309,7 +2303,7 @@
         </div>
       </section>
       <!-- Why Choose Us (Revitalized) -->
-      <section id="why-us" class="py-12 md:py-16 lg:py-stack-lg overflow-hidden bg-white">
+      <!-- <section id="why-us" class="py-12 md:py-16 lg:py-stack-lg overflow-hidden bg-white">
         <div class="max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop">
           <div class="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-stack-lg items-center">
             <div class="reveal">
@@ -2442,7 +2436,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
       <!-- Process Section (Enhanced) -->
       <section id="process" class="py-12 md:py-16 lg:py-stack-lg bg-surface-container-low">
         <div class="max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop">

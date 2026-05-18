@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PureFlow Payment Receipt - INV-2024-882</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#1c1b1b",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#313030",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "surface-container-high": "#ebe7e7",
+                        "surface-variant": "#e5e2e1",
+                        "background": "#fcf9f8",
+                        "outline-variant": "#c3c6d1",
+                        "tertiary-container": "#003a3e",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "surface-dim": "#dcd9d9",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#364a4d",
+                        "surface-container": "#f0edec",
+                        "on-tertiary-container": "#1facb6",
+                        "error-container": "#ffdad6",
+                        "primary": "#001e40",
+                        "on-secondary-container": "#53686b",
+                        "secondary-fixed": "#d0e7ea",
+                        "outline": "#737780",
+                        "surface-container-low": "#f6f3f2",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#43474f",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#091f21",
+                        "secondary": "#4d6265",
+                        "surface": "#fcf9f8",
+                        "inverse-on-surface": "#f3f0ef",
+                        "secondary-container": "#d0e7ea",
+                        "on-tertiary-fixed": "#002022",
+                        "on-primary-container": "#799dd6",
+                        "primary-fixed": "#d5e3ff",
+                        "on-tertiary-fixed-variant": "#004f54",
+                        "surface-bright": "#fcf9f8",
+                        "on-background": "#1c1b1b",
+                        "on-primary-fixed": "#001b3c",
+                        "primary-container": "#003366",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e5e2e1",
+                        "tertiary": "#002326",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#b4cbce",
+                        "surface-tint": "#3a5f94",
+                        "tertiary-fixed": "#7df4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#a7c8ff",
+                        "tertiary-fixed-dim": "#5dd8e2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "12px",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "16px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "container-max": "1200px",
+                        "stack-md": "32px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "stack-lg": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px -10px rgba(0, 30, 64, 0.08);
+        }
+        .bloom-glow {
+            box-shadow: 0 0 30px 5px rgba(0, 128, 128, 0.05);
+        }
+        .paid-stamp {
+            transform: rotate(-12deg);
+            border: 4px double #1facb6;
+            color: #1facb6;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.05);
+        }
+        .a4-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: auto;
+            padding: 20mm;
+        }
+        @media print {
+            body { background: white; }
+            .a4-container { box-shadow: none; padding: 0; }
+        }
+    </style>
+</head>
+<body class="bg-surface-container-low font-body-md text-on-surface selection:bg-on-tertiary-container/30">
+<!-- Header Navigation Shell (TopAppBar) -->
+<header class="bg-surface dark:bg-surface text-primary border-b border-outline-variant flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-16 sticky top-0 z-50">
+<div class="text-headline-md font-headline-md font-bold text-primary">PureFlow</div>
+<div class="hidden md:flex items-center gap-8">
+<span class="material-symbols-outlined hover:bg-surface-variant transition-colors p-2 rounded-full cursor-pointer" data-icon="print">print</span>
+<span class="material-symbols-outlined hover:bg-surface-variant transition-colors p-2 rounded-full cursor-pointer" data-icon="share">share</span>
+<span class="material-symbols-outlined hover:bg-surface-variant transition-colors p-2 rounded-full cursor-pointer" data-icon="download">download</span>
+</div>
+</header>
+<main class="py-stack-lg flex justify-center px-margin-mobile">
+<!-- A4 Page Layout -->
+<div class="a4-container bg-surface-container-lowest glass-card rounded-lg relative overflow-hidden bloom-glow">
+<!-- Hero Decorative Element (Airflow Pattern) -->
+<div class="absolute top-0 right-0 w-1/2 h-64 opacity-5 pointer-events-none">
+<svg class="w-full h-full" viewbox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+<path class="text-on-tertiary-container" d="M0 100 Q 100 50 200 100 T 400 100" fill="none" stroke="currentColor" stroke-width="2"></path>
+<path class="text-on-tertiary-container" d="M0 150 Q 100 100 200 150 T 400 150" fill="none" stroke="currentColor" stroke-width="2"></path>
+<path class="text-on-tertiary-container" d="M0 200 Q 100 150 200 200 T 400 200" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+<!-- Top Header Section -->
+<div class="flex justify-between items-start mb-stack-lg relative z-10">
+<div>
+<div class="flex items-center gap-stack-sm mb-4">
+<div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-headline-md" data-icon="filter_vintage" style="font-variation-settings: 'FILL' 1;">filter_vintage</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">PureFlow</h1>
+</div>
+<div class="space-y-1">
+<p class="text-on-surface-variant font-label-md uppercase tracking-wider">Payment Receipt</p>
+<p id="invoice-id" class="font-headline-md text-primary">#INV-2024-882</p>
+<p class="text-body-md text-on-surface-variant">Transaction ID: <span id="transaction-id" class="font-bold text-on-surface">TXN_99281</span></p>
+</div>
+</div>
+<!-- PAID Stamp -->
+<div class="pt-4">
+<div class="paid-stamp px-8 py-3 rounded border-4 border-double inline-block opacity-90">
+<span class="font-headline-lg font-extrabold tracking-widest text-[42px]">PAID</span>
+</div>
+</div>
+</div>
+<!-- Customer & Transaction Metadata Grid -->
+<div class="grid grid-cols-2 gap-stack-lg mb-stack-lg">
+<div class="space-y-4">
+<h3 class="text-on-surface-variant font-label-md uppercase tracking-widest border-b border-outline-variant pb-2">Billed To</h3>
+<div>
+<p id="customer-name" class="font-headline-md text-primary">Alexander Vance</p>
+<p id="customer-address" class="text-body-md text-on-surface-variant leading-relaxed">
+                            482 Oakwood Ave, Suite 200<br/>
+                            Northwood, CA 92104
+                        </p>
+</div>
+</div>
+<div class="space-y-4">
+<h3 class="text-on-surface-variant font-label-md uppercase tracking-widest border-b border-outline-variant pb-2">Payment Details</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="credit_card">credit_card</span>
+<p class="text-body-md text-on-surface">Visa ****4242</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="calendar_today">calendar_today</span>
+<p id="payment-date" class="text-body-md text-on-surface">Oct 24, 2024, 12:45 PM</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Pricing Table -->
+<div class="mb-stack-lg overflow-hidden rounded-lg border border-outline-variant">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container text-primary font-label-md uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4">Service Description</th>
+<th class="px-6 py-4 text-center">Unit</th>
+<th class="px-6 py-4 text-right">Amount</th>
+</tr>
+</thead>
+<tbody id="service-details" class="text-body-md divide-y divide-outline-variant">
+<tr>
+<td class="px-6 py-5">
+<span class="font-semibold block text-primary">Air Duct Cleaning</span>
+<span class="text-on-surface-variant text-sm">Full residential HVAC sanitation</span>
+</td>
+<td class="px-6 py-5 text-center">1</td>
+<td class="px-6 py-5 text-right font-semibold">$450.00</td>
+</tr>
+<tr>
+<td class="px-6 py-5">
+<span class="font-semibold block text-primary">Dryer Vent Cleaning</span>
+<span class="text-on-surface-variant text-sm">Lint removal &amp; airflow optimization</span>
+</td>
+<td class="px-6 py-5 text-center">1</td>
+<td class="px-6 py-5 text-right font-semibold">$120.00</td>
+</tr>
+<tr>
+<td class="px-6 py-5">
+<span class="font-semibold block text-primary">Antimicrobial Sanitization</span>
+<span class="text-on-surface-variant text-sm">Clinical-grade air quality treatment</span>
+</td>
+<td class="px-6 py-5 text-center">1</td>
+<td class="px-6 py-5 text-right font-semibold">$79.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Financial Summary & Trust Footer -->
+<div class="flex justify-between items-start gap-stack-lg">
+<!-- Trust & Verification Section -->
+<div class="flex gap-stack-md items-center">
+<div class="p-2 bg-surface-container rounded-lg border border-outline-variant">
+<!-- QR Code Placeholder -->
+<div id="qrcode" class="w-24 h-24 bg-white flex items-center justify-center border border-surface-variant">
+<span class="material-symbols-outlined text-surface-variant text-[48px]" data-icon="qr_code_2">qr_code_2</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2 px-3 py-1 bg-tertiary-container/10 text-on-tertiary-container rounded-full w-fit">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-[12px]">VERIFIED TRANSACTION</span>
+</div>
+<p class="text-[12px] text-on-surface-variant max-w-[200px] italic">Scan for digital certification and air purity reporting logs.</p>
+</div>
+</div>
+<!-- Subtotals -->
+<div class="w-72 space-y-3">
+<div class="flex justify-between text-body-md text-on-surface-variant">
+<span>Subtotal</span>
+<span id="subtotal">$649.00</span>
+</div>
+<div class="flex justify-between text-body-md text-on-surface-variant">
+<span>Tax (0%)</span>
+<span>$0.00</span>
+</div>
+<div class="flex justify-between text-body-md text-on-surface-variant pb-3 border-b border-outline-variant">
+<span>Discount</span>
+<span>$0.00</span>
+</div>
+<div class="flex justify-between items-center pt-2">
+<span class="font-headline-md text-primary">Total Paid</span>
+<span id="total-paid" class="font-headline-md text-on-tertiary-container">$649.00</span>
+</div>
+<div class="h-1 bg-gradient-to-r from-primary to-on-tertiary-container rounded-full mt-2"></div>
+</div>
+</div>
+<!-- Bottom Note -->
+<div class="mt-stack-lg pt-stack-md border-t border-outline-variant">
+<p class="text-on-surface-variant text-sm italic mb-4">
+                    Clinical Excellence in Air Quality: This document serves as official proof of payment for clinical-grade environmental maintenance services. All procedures were conducted according to HEPA standards and environmental health protocols.
+                </p>
+<div class="flex justify-between items-center text-on-surface-variant font-label-md text-[12px]">
+<div class="flex gap-4">
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<span>•</span>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+</div>
+<p>© 2024 PureFlow Technologies. All rights reserved.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Component Shell -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant w-full">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-stack-md max-w-container-max mx-auto">
+<div class="text-label-md font-label-md font-bold text-primary mb-4 md:mb-0">PureFlow</div>
+<p class="text-body-md text-on-surface-variant text-center md:text-left mb-4 md:mb-0">© 2024 PureFlow. All rights reserved. Certified Clean.</p>
+<div class="flex gap-stack-sm">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md" href="#">Contact Support</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md" href="#">View Certification</a>
+</div>
+</div>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const params = new URLSearchParams(window.location.search);
+        const bookingId = params.get('id');
+
+        if (bookingId) {
+            try {
+                const response = await fetch(`/api/bookings/${bookingId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const booking = data.booking;
+                    const servicePricing = {
+                        'Air Duct Cleaning': 450,
+                        'Dryer Vent Cleaning': 120,
+                        'Air Vent Cleaning': 150,
+                        'Deep Air Vent Cleaning': 250,
+                        'Furnace Cleaning': 300,
+                        'Antimicrobial Sanitization': 79
+                    };
+
+                    document.getElementById('invoice-id').textContent = `#INV-2024-${booking._id.substring(0, 4)}`;
+                    document.getElementById('transaction-id').textContent = `TXN_${booking._id.substring(4, 10)}`;
+                    document.getElementById('customer-name').textContent = booking.name;
+                    document.getElementById('customer-address').innerHTML = `${booking.address}<br/>${booking.city}, ${booking.state} ${booking.zipCode}`;
+                    document.getElementById('payment-date').textContent = new Date(booking.submittedAt).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+                    const serviceDetails = document.getElementById('service-details');
+                    serviceDetails.innerHTML = '';
+
+                    let subtotal = 0;
+                    const serviceItem = document.createElement('tr');
+                    const price = servicePricing[booking.service] || 0;
+                    subtotal += price;
+                    serviceItem.innerHTML = `
+                        <td class="px-6 py-5">
+                            <span class="font-semibold block text-primary">${booking.service}</span>
+                        </td>
+                        <td class="px-6 py-5 text-center">1</td>
+                        <td class="px-6 py-5 text-right font-semibold">$${price.toFixed(2)}</td>
+                    `;
+                    serviceDetails.appendChild(serviceItem);
+
+                    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+                    document.getElementById('total-paid').textContent = `$${subtotal.toFixed(2)}`;
+
+                    // QR Code
+                    const qrCodeContainer = document.getElementById('qrcode');
+                    qrCodeContainer.innerHTML = ''; // Clear placeholder
+                    new QRCode(qrCodeContainer, {
+                        text: window.location.href,
+                        width: 96,
+                        height: 96,
+                        colorDark : "#001e40",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+
+                } else {
+                    console.error('Failed to fetch booking details:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching booking details:', error);
+            }
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</body></html>

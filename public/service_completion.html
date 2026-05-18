@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#d0e7ea",
+                        "on-secondary-container": "#53686b",
+                        "tertiary-container": "#003a3e",
+                        "surface-container-low": "#f6f3f2",
+                        "tertiary": "#002326",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "secondary-fixed-dim": "#b4cbce",
+                        "on-primary-fixed": "#001b3c",
+                        "primary": "#001e40",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "on-secondary-fixed": "#091f21",
+                        "surface-variant": "#e5e2e1",
+                        "secondary-container": "#d0e7ea",
+                        "surface-bright": "#fcf9f8",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#364a4d",
+                        "tertiary-fixed-dim": "#5dd8e2",
+                        "surface-container-highest": "#e5e2e1",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-tertiary-container": "#1facb6",
+                        "on-tertiary-fixed-variant": "#004f54",
+                        "on-primary-container": "#799dd6",
+                        "on-background": "#1c1b1b",
+                        "on-surface-variant": "#43474f",
+                        "on-surface": "#1c1b1b",
+                        "background": "#fcf9f8",
+                        "surface-tint": "#3a5f94",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#002022",
+                        "inverse-primary": "#a7c8ff",
+                        "error-container": "#ffdad6",
+                        "outline": "#737780",
+                        "surface-dim": "#dcd9d9",
+                        "tertiary-fixed": "#7df4ff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#d5e3ff",
+                        "surface-container": "#f0edec",
+                        "secondary": "#4d6265",
+                        "outline-variant": "#c3c6d1",
+                        "primary-container": "#003366",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "surface-container-high": "#ebe7e7",
+                        "inverse-surface": "#313030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "stack-lg": "80px",
+                        "margin-desktop": "64px",
+                        "stack-sm": "16px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "stack-md": "32px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        @media print {
+            .no-print { display: none; }
+            body { background: white; }
+            .a4-page { 
+                width: 210mm; 
+                height: 297mm; 
+                margin: 0; 
+                box-shadow: none;
+                padding: 20mm;
+            }
+        }
+        .glass-card {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(0, 30, 64, 0.1);
+        }
+        .bloom-glow {
+            box-shadow: 0 0 20px 0 rgba(0, 172, 182, 0.1);
+        }
+        .airflow-gradient {
+            background: linear-gradient(90deg, #001e40 0%, #00acb6 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-low font-body-md text-on-surface min-h-screen p-stack-md flex justify-center items-start">
+<!-- A4 Document Container -->
+<div class="a4-page bg-surface-container-lowest w-full max-w-[850px] shadow-2xl relative overflow-hidden flex flex-col mx-auto p-margin-desktop min-h-[1100px] border border-outline-variant">
+<!-- Header Section -->
+<header class="flex justify-between items-start mb-stack-lg w-full">
+<div class="flex flex-col gap-unit">
+<div class="flex items-center gap-unit">
+<span class="material-symbols-outlined text-primary text-[40px]" data-weight="fill">verified</span>
+<h1 class="font-headline-md text-headline-md text-primary font-bold tracking-tight">PureFlow</h1>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Service Completion Report</p>
+</div>
+<div class="glass-card bloom-glow rounded-xl p-stack-sm flex flex-col items-end border-on-tertiary-container/20">
+<div class="flex items-center gap-2 text-on-tertiary-container mb-1">
+<span class="material-symbols-outlined text-[18px]" data-weight="fill">verified</span>
+<span class="font-label-md text-label-md">Certified Clean</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary font-extrabold leading-tight">Service Completed Successfully</h2>
+<p id="report-id" class="font-label-md text-label-md text-on-surface-variant">Report ID: #PAS-992810</p>
+</div>
+</header>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-12 gap-gutter flex-grow">
+<!-- Sidebar: Details -->
+<div class="col-span-4 flex flex-col gap-stack-md">
+<section>
+<h3 class="font-label-md text-label-md text-primary mb-stack-sm border-b border-secondary-fixed pb-2">Client Information</h3>
+<div class="flex flex-col gap-1">
+<p id="customer-name" class="font-body-md text-body-md font-semibold text-on-surface">Alexandria Sterling</p>
+<p id="customer-address" class="font-body-md text-body-md text-on-surface-variant">482 Oakwood Heights Dr.</p>
+<p id="customer-city-state" class="font-body-md text-body-md text-on-surface-variant">Aspen, CO 81611</p>
+</div>
+</section>
+<section>
+<h3 class="font-label-md text-label-md text-primary mb-stack-sm border-b border-secondary-fixed pb-2">Technician Details</h3>
+<div class="flex items-center gap-stack-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-on-tertiary-container">
+<img class="w-full h-full object-cover" data-alt="A professional male HVAC technician in a clean, high-end navy blue branded uniform smiling warmly. The setting is a bright, modern minimalist office environment with soft focus. He represents the clinical yet welcoming brand identity of a premium home service professional with an emphasis on trust and invisible excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlPmvqh2TaQwIYIK986mhbyAGip6iyaEJOCE-5QvDU8jCOTrVVL-ye4dZuz6zYxx6Kcf5Vpo34rKe9m9zOg-g7C5YFMQnDcYp6ExbPVEN_5f_W13cgvT3YjRgWfnABT2aPya5S9DNAqCiJTVsqY_wwfahvbn938a_3FUGcw_-4JJGjEeaXY-U6vBUKGoxHhjZRVGe9ztLa2PIfjjtCVWb0nKAHk8ilw3eEtP3oUdVe-kPd5flbch_tFLYMF_dQMy5Tcbjry_CUmz58"/>
+</div>
+<div>
+<p class="font-body-md text-body-md font-semibold text-on-surface">Marcus Thorne</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Senior Airflow Specialist</p>
+</div>
+</div>
+</section>
+<section>
+<h3 class="font-label-md text-label-md text-primary mb-stack-sm border-b border-secondary-fixed pb-2">Completion Date</h3>
+<p id="completion-date" class="font-body-md text-body-md text-on-surface">October 24, 2024</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Time: 10:15 AM - 01:45 PM</p>
+</section>
+<section class="mt-auto glass-card p-stack-sm rounded-xl border-secondary-fixed text-center">
+<p class="font-label-md text-label-md text-primary uppercase mb-2">Service Guarantee</p>
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[32px] text-on-tertiary-container" data-weight="fill">verified_user</span>
+<p class="font-body-md text-body-md font-bold text-primary">12-Month Coverage</p>
+<p class="font-label-md text-label-md text-on-surface-variant px-2">PureFlow Platinum Protection included with this service.</p>
+</div>
+</section>
+</div>
+<!-- Main Panel: Results & Data -->
+<div class="col-span-8 flex flex-col gap-stack-md">
+<!-- Bento Section: Service Summary -->
+<div class="grid grid-cols-2 gap-gutter">
+<div class="glass-card p-stack-md rounded-xl col-span-2">
+<h3 class="font-headline-md text-headline-md text-primary mb-stack-sm">Service Checklist</h3>
+<div id="service-checklist" class="grid grid-cols-2 gap-x-gutter gap-y-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container text-[20px]" data-weight="fill">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">Main Duct Cleaning</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container text-[20px]" data-weight="fill">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">HEPA Filter Replacement</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container text-[20px]" data-weight="fill">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">UV-C Sanitization Cycle</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-tertiary-container text-[20px]" data-weight="fill">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface">System Calibration</span>
+</div>
+</div>
+</div>
+<!-- Before vs After -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-32 bg-surface-variant relative">
+<img class="w-full h-full object-cover" data-alt="A macro close-up of a dirty HVAC air vent covered in thick, grey dust and lint. The lighting is harsh to emphasize the debris. This represents the 'before' state in a professional air quality service report, emphasizing the need for cleaning in a clinical and high-tech setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcL1b11viIr4aVwmikuQSRBtptGFebW6m114pY-Fq44bV9AIpJvpjWpGMtrhSke7Cw8-Z6sYkPpm8HlKr92GFo4rXVOiLXbEWL64wM-Lax6Tu_ZUAZsOh9QHhZDbRWrkOr_RFsvTgZT_S31yqkFKbfFf8HZIkJh5dIKjiBuhe5VePqwbB6Lsahv9Ktqc0pna9j1w4B4gP02GH8ZfH6etkdBzMtDT74Wm8iD1LpynONZYa30Pa07M4DT1jwExH34crEYnFPFF9lMyX9"/>
+<div class="absolute top-2 left-2 bg-primary/80 text-white text-[10px] px-2 py-1 rounded font-bold uppercase">Before</div>
+</div>
+<div class="h-32 bg-white relative">
+<img class="w-full h-full object-cover" data-alt="A macro close-up of a perfectly clean, pristine HVAC air vent with a polished metallic finish. The lighting is soft, bright, and clinical, reflecting a sense of pure, fresh air. There is no dust visible, representing the 'after' state of a premium air purification service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcjKe24EuKwaAm-GAyPWD7bbLpdFgR8db397O7DiRUMeV9BcSvwub4rlegtb676R4ECYCbiiYO0NY7NX9humLeXYiEzF18s_mDIIXucHcs0tfA_YBFxRWetYYcLKq6C1X7ePbdgjjR5VNRBrofx703wSULG0h1Xt44Z7CQpj2BG_xTgznFqsd-weG5mHqiWIKOuLpDbErHSrLWk9M6vHxYhZDbr0u0KeGy61FUrUC2yZh49L5mFVINy24YYtubJLazV2c6ADhwYjgI"/>
+<div class="absolute top-2 left-2 bg-on-tertiary-container text-white text-[10px] px-2 py-1 rounded font-bold uppercase">After</div>
+</div>
+</div>
+<!-- Data Dashboard -->
+<div class="glass-card p-stack-sm rounded-xl flex flex-col justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Air Quality Gain</p>
+<h4 class="font-display-lg text-[48px] text-primary leading-none">+98%</h4>
+<p class="font-label-md text-label-md text-on-tertiary-container font-bold">Purity Rating</p>
+</div>
+<div class="flex flex-col gap-2 mt-4">
+<div class="w-full h-2 bg-secondary-fixed rounded-full overflow-hidden">
+<div class="h-full airflow-gradient w-[98%]"></div>
+</div>
+<p class="font-label-md text-[10px] text-on-surface-variant uppercase tracking-tighter">Particle Count: 420 → 8 PM2.5</p>
+</div>
+</div>
+</div>
+<!-- Notes & Recommendations -->
+<div class="flex flex-col gap-stack-sm">
+<div class="border-l-4 border-on-tertiary-container bg-surface-container-low p-stack-sm rounded-r-xl">
+<h4 class="font-label-md text-label-md text-primary uppercase font-bold mb-1">Technician Notes</h4>
+<p id="technician-notes" class="font-body-md text-body-md text-on-surface italic">"The main intake showed significant accumulation of organic particulates. Successfully sanitized with silver-ion coating. The overall system efficiency has returned to original manufacturer specifications."</p>
+</div>
+<div class="glass-card p-stack-md rounded-xl">
+<h4 class="font-label-md text-label-md text-primary uppercase font-bold mb-3">Maintenance Roadmap (12 Months)</h4>
+<div class="flex flex-col gap-4">
+<div class="flex items-start gap-4">
+<div class="bg-primary text-white w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-primary">April 2025: Mid-Season Refresh</p>
+<p class="font-body-md text-[14px] text-on-surface-variant">Secondary filter inspection and coil cleaning to prepare for summer cooling loads.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="bg-on-tertiary-container text-white w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">event_repeat</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-primary">October 2025: Annual Certification</p>
+<p class="font-body-md text-[14px] text-on-surface-variant">Full system deep-clean and re-certification of the PureFlow 100% Purity Guarantee.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Signatures -->
+<div class="grid grid-cols-2 gap-gutter mt-stack-md pt-stack-md border-t border-outline-variant">
+<div class="flex flex-col gap-unit">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase">Technician Signature</p>
+<div class="h-16 border-b border-primary/20 flex items-end pb-2">
+<p class="font-body-md text-2xl font-serif italic text-primary opacity-80">Marcus Thorne</p>
+</div>
+</div>
+<div class="flex flex-col gap-unit">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase">Client Signature</p>
+<div class="h-16 border-b border-primary/20 flex items-center justify-center">
+<span class="font-label-md text-label-md text-on-surface-variant opacity-30 italic">Sign on Glass</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-stack-lg border-t border-secondary-fixed pt-stack-md flex justify-between items-center">
+<div class="flex flex-col">
+<p class="font-label-md text-label-md text-primary font-bold">PureFlow | Invisible Excellence</p>
+<p class="font-label-md text-[12px] text-on-surface-variant">© 2024 PureFlow. All Rights Reserved. Licensed &amp; Insured.</p>
+</div>
+<div class="flex gap-stack-sm items-center">
+<div class="flex">
+<span class="material-symbols-outlined text-[20px] text-on-tertiary-container" data-weight="fill">star</span>
+<span class="material-symbols-outlined text-[20px] text-on-tertiary-container" data-weight="fill">star</span>
+<span class="material-symbols-outlined text-[20px] text-on-tertiary-container" data-weight="fill">star</span>
+<span class="material-symbols-outlined text-[20px] text-on-tertiary-container" data-weight="fill">star</span>
+<span class="material-symbols-outlined text-[20px] text-on-tertiary-container" data-weight="fill">star</span>
+</div>
+<div class="h-10 w-[1px] bg-outline-variant"></div>
+<div class="bg-primary px-4 py-2 rounded-lg text-white font-label-md text-label-md">
+                    100% Satisfaction Badge
+                </div>
+</div>
+</footer>
+<!-- Print FAB -->
+<button class="no-print fixed bottom-10 right-10 airflow-gradient text-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-2 hover:scale-105 transition-transform" onclick="window.print()">
+<span class="material-symbols-outlined">print</span>
+<span class="font-label-md">Download PDF Report</span>
+</button>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const params = new URLSearchParams(window.location.search);
+        const bookingId = params.get('id');
+
+        if (bookingId) {
+            try {
+                const response = await fetch(`/api/bookings/${bookingId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const booking = data.booking;
+
+                    document.getElementById('report-id').textContent = `#PAS-${booking._id.substring(0, 7).toUpperCase()}`;
+                    document.getElementById('customer-name').textContent = booking.name;
+                    document.getElementById('customer-address').textContent = booking.address;
+                    document.getElementById('customer-city-state').textContent = `${booking.city}, ${booking.state}`;
+                    document.getElementById('completion-date').textContent = new Date(booking.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                    const serviceChecklist = document.getElementById('service-checklist');
+                    serviceChecklist.innerHTML = '';
+                    const serviceItem = document.createElement('div');
+                    serviceItem.className = 'flex items-center gap-2';
+                    serviceItem.innerHTML = `
+                        <span class="material-symbols-outlined text-on-tertiary-container text-[20px]" data-weight="fill">check_circle</span>
+                        <span class="font-body-md text-body-md text-on-surface">${booking.service}</span>
+                    `;
+                    serviceChecklist.appendChild(serviceItem);
+
+                    if(booking.message){
+                        document.getElementById('technician-notes').textContent = booking.message;
+                    }
+
+                } else {
+                    console.error('Failed to fetch booking details:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching booking details:', error);
+            }
+        }
+    });
+</script>
+</body></html>
