@@ -39,7 +39,9 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Test route
+app.get('/', (req, res) => {
+    res.send('Hello from Express!');
+});
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Backend is working!', mongodb: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected' });
 });
