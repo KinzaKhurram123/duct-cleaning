@@ -2,11 +2,6 @@
   "name": "pureflow-backend",
   "version": "1.0.0",
   "description": "Backend server for PureFlow Systems booking form",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
-  },
   "keywords": [
     "nodejs",
     "express",

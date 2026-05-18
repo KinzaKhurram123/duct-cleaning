@@ -313,9 +313,4 @@ app.patch('/api/bookings/:id/status', async (req, res) => {
   }
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
-  console.log(`📧 Email service configured with: ${process.env.EMAIL_USER}`);
-  console.log(`💾 MongoDB Status: ${mongoose.connection.readyState === 1 ? 'Connected' : 'Connecting...'}`);
-});
+module.exports = app;
