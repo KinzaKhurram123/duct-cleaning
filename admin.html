@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - PureFlow Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,1&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+        }
+        .status-pending {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            color: #92400E;
+        }
+        .status-confirmed {
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+            color: #065F46;
+        }
+        .status-completed {
+            background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+            color: #1E40AF;
+        }
+        .status-cancelled {
+            background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+            color: #991B1B;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #001e40 0%, #003366 100%);
+        }
+        .table-row:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+        .icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+        .refresh-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .refresh-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(180deg);
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-2xl sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                        <span class="material-symbols-outlined text-3xl">dashboard</span>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">PureFlow Systems</h1>
+                        <p class="text-blue-200 text-sm">Admin Dashboard</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="loadBookings()" class="refresh-btn px-6 py-3 rounded-xl transition flex items-center gap-2 font-medium">
+                        <span class="material-symbols-outlined">refresh</span>
+                        <span class="hidden md:inline">Refresh</span>
+                    </button>
+                    <div class="text-right bg-white/10 px-6 py-3 rounded-xl backdrop-blur-sm">
+                        <div class="text-sm text-blue-200">Total Bookings</div>
+                        <div id="total-count" class="text-3xl font-bold">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-slide-in">
+            <!-- Pending Card -->
+            <div class="stat-card p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium mb-1">Pending</p>
+                        <p id="pending-count" class="text-4xl font-bold text-yellow-600">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Awaiting confirmation</p>
+                    </div>
+                    <div class="icon-wrapper bg-gradient-to-br from-yellow-400 to-orange-500">
+                        <span class="material-symbols-outlined text-white">schedule</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confirmed Card -->
+            <div class="stat-card p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium mb-1">Confirmed</p>
+                        <p id="confirmed-count" class="text-4xl font-bold text-green-600">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Ready to service</p>
+                    </div>
+                    <div class="icon-wrapper bg-gradient-to-br from-green-400 to-emerald-500">
+                        <span class="material-symbols-outlined text-white">check_circle</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completed Card -->
+            <div class="stat-card p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium mb-1">Completed</p>
+                        <p id="completed-count" class="text-4xl font-bold text-blue-600">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Successfully done</p>
+                    </div>
+                    <div class="icon-wrapper bg-gradient-to-br from-blue-400 to-indigo-500">
+                        <span class="material-symbols-outlined text-white">task_alt</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cancelled Card -->
+            <div class="stat-card p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium mb-1">Cancelled</p>
+                        <p id="cancelled-count" class="text-4xl font-bold text-red-600">0</p>
+                        <p class="text-xs text-gray-400 mt-1">Not completed</p>
+                    </div>
+                    <div class="icon-wrapper bg-gradient-to-br from-red-400 to-pink-500">
+                        <span class="material-symbols-outlined text-white">cancel</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bookings Table -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden animate-slide-in">
+            <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-3xl text-blue-600">list_alt</span>
+                        <h2 class="text-2xl font-bold text-gray-800">Recent Bookings</h2>
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        Last updated: <span id="last-updated">Just now</span>
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Date & Time</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Customer</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Service</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Location</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Contact</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookings-table" class="bg-white divide-y divide-gray-100">
+                        <tr>
+                            <td colspan="7" class="px-6 py-12 text-center text-gray-500">
+                                <div class="flex flex-col items-center gap-3">
+                                    <span class="material-symbols-outlined text-6xl text-gray-300">hourglass_empty</span>
+                                    <p class="text-lg font-medium">Loading bookings...</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Booking Detail Modal -->
+    <div id="detail-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="sticky top-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 flex justify-between items-center rounded-t-3xl">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-3xl">description</span>
+                    <h3 class="text-2xl font-bold">Booking Details</h3>
+                </div>
+                <button onclick="closeModal()" class="text-white hover:bg-white/20 rounded-full p-2 transition">
+                    <span class="material-symbols-outlined text-3xl">close</span>
+                </button>
+            </div>
+            <div id="modal-content" class="p-6">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        // Load bookings on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadBookings();
+            updateLastUpdated();
+        });
+
+        function updateLastUpdated() {
+            const now = new Date();
+            document.getElementById('last-updated').textContent = now.toLocaleTimeString();
+        }
+
+        async function loadBookings() {
+            try {
+                const response = await fetch(`${API_URL}/bookings`);
+                const data = await response.json();
+
+                if (data.success) {
+                    displayBookings(data.bookings);
+                    updateStats(data.bookings);
+                    updateLastUpdated();
+                }
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+                document.getElementById('bookings-table').innerHTML = `
+                    <tr>
+                        <td colspan="7" class="px-6 py-12 text-center text-red-500">
+                            <div class="flex flex-col items-center gap-3">
+                                <span class="material-symbols-outlined text-6xl">error</span>
+                                <p class="text-lg font-medium">Error loading bookings</p>
+                                <p class="text-sm">Make sure the server is running on port 3000</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        function displayBookings(bookings) {
+            const tbody = document.getElementById('bookings-table');
+
+            if (bookings.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="px-6 py-12 text-center text-gray-500">
+                            <div class="flex flex-col items-center gap-3">
+                                <span class="material-symbols-outlined text-6xl text-gray-300">inbox</span>
+                                <p class="text-lg font-medium">No bookings yet</p>
+                                <p class="text-sm">New bookings will appear here</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = bookings.map(booking => `
+                <tr class="table-row transition">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-gray-400">calendar_today</span>
+                            <div>
+                                <div class="text-sm font-medium text-gray-900">${new Date(booking.submittedAt).toLocaleDateString()}</div>
+                                <div class="text-xs text-gray-500">${new Date(booking.submittedAt).toLocaleTimeString()}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center gap-2">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold">
+                                ${booking.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div class="text-sm font-medium text-gray-900">${booking.name}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-900 font-medium">${booking.service}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-start gap-2">
+                            <span class="material-symbols-outlined text-gray-400 text-sm">location_on</span>
+                            <div class="text-sm text-gray-600">${booking.city}, ${booking.state}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-900">${booking.email}</div>
+                        <div class="text-xs text-gray-500">${booking.phone}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-3 py-1.5 inline-flex text-xs leading-5 font-bold rounded-full status-${booking.status}">
+                            ${booking.status.toUpperCase()}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <div class="flex items-center gap-2">
+                            <button onclick="viewDetails('${booking._id}')" class="text-blue-600 hover:text-blue-900 font-medium hover:underline">
+                                View
+                            </button>
+                            <select onchange="updateStatus('${booking._id}', this.value)" class="text-xs border border-gray-300 rounded-lg px-2 py-1.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option value="">Status...</option>
+                                <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                                <option value="completed" ${booking.status === 'completed' ? 'selected' : ''}>Completed</option>
+                                <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateStats(bookings) {
+            document.getElementById('total-count').textContent = bookings.length;
+            document.getElementById('pending-count').textContent = bookings.filter(b => b.status === 'pending').length;
+            document.getElementById('confirmed-count').textContent = bookings.filter(b => b.status === 'confirmed').length;
+            document.getElementById('completed-count').textContent = bookings.filter(b => b.status === 'completed').length;
+            document.getElementById('cancelled-count').textContent = bookings.filter(b => b.status === 'cancelled').length;
+        }
+
+        async function viewDetails(bookingId) {
+            try {
+                const response = await fetch(`${API_URL}/bookings/${bookingId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const booking = data.booking;
+                    document.getElementById('modal-content').innerHTML = `
+                        <div class="space-y-6">
+                            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-xl border border-blue-100">
+                                <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Booking ID</p>
+                                <p class="font-mono text-sm font-bold text-gray-800">${booking._id}</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-xl">
+                                    <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Customer Name</p>
+                                    <p class="font-semibold text-gray-900">${booking.name}</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-xl">
+                                    <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Status</p>
+                                    <span class="px-3 py-1.5 inline-flex text-xs font-bold rounded-full status-${booking.status}">
+                                        ${booking.status.toUpperCase()}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-xl">
+                                <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Service Requested</p>
+                                <p class="font-semibold text-gray-900">${booking.service}</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-5 rounded-xl border border-green-100">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="material-symbols-outlined text-green-600">location_on</span>
+                                    <p class="text-xs text-gray-600 font-medium uppercase tracking-wide">Service Address</p>
+                                </div>
+                                <p class="font-semibold text-gray-900">${booking.address}</p>
+                                <p class="text-sm text-gray-600 mt-1">${booking.city}, ${booking.state} ${booking.zipCode}</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-xl">
+                                    <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Email</p>
+                                    <p><a href="mailto:${booking.email}" class="text-blue-600 hover:underline font-medium">${booking.email}</a></p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-xl">
+                                    <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Phone</p>
+                                    <p><a href="tel:${booking.phone}" class="text-blue-600 hover:underline font-medium">${booking.phone}</a></p>
+                                </div>
+                            </div>
+                            ${booking.message ? `
+                            <div class="bg-gray-50 p-4 rounded-xl">
+                                <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Additional Message</p>
+                                <p class="text-gray-700 leading-relaxed">${booking.message}</p>
+                            </div>
+                            ` : ''}
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-xl">
+                                    <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">Submitted At</p>
+                                    <p class="text-sm font-medium text-gray-900">${new Date(booking.submittedAt).toLocaleString()}</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-xl">
+                                    <p class="text-xs text-gray-500 mb-2 font-medium uppercase tracking-wide">IP Address</p>
+                                    <p class="text-sm font-mono font-medium text-gray-900">${booking.ipAddress || 'N/A'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('detail-modal').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error loading booking details:', error);
+                alert('Error loading booking details');
+            }
+        }
+
+        async function updateStatus(bookingId, newStatus) {
+            if (!newStatus) return;
+
+            try {
+                const response = await fetch(`${API_URL}/bookings/${bookingId}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    loadBookings();
+                    // Show success notification
+                    const notification = document.createElement('div');
+                    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 animate-slide-in';
+                    notification.innerHTML = '<span class="material-symbols-outlined inline-block mr-2">check_circle</span>Status updated successfully!';
+                    document.body.appendChild(notification);
+                    setTimeout(() => notification.remove(), 3000);
+                } else {
+                    alert('Error updating status');
+                }
+            } catch (error) {
+                console.error('Error updating status:', error);
+                alert('Error updating status');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        // Close modal on outside click
+        document.getElementById('detail-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'detail-modal') {
+                closeModal();
+            }
+        });
+
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            loadBookings();
+        }, 30000);
+    </script>
+</body>
+</html>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold">PureFlow Systems</h1>
+                    <p class="text-blue-200 text-sm">Admin Dashboard</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="loadBookings()" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition">
+                        🔄 Refresh
+                    </button>
+                    <div class="text-right">
+                        <div class="text-sm text-blue-200">Total Bookings</div>
+                        <div id="total-count" class="text-2xl font-bold">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Pending</p>
+                        <p id="pending-count" class="text-3xl font-bold text-yellow-600">0</p>
+                    </div>
+                    <div class="text-4xl">⏳</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Confirmed</p>
+                        <p id="confirmed-count" class="text-3xl font-bold text-green-600">0</p>
+                    </div>
+                    <div class="text-4xl">✅</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Completed</p>
+                        <p id="completed-count" class="text-3xl font-bold text-blue-600">0</p>
+                    </div>
+                    <div class="text-4xl">🎉</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm">Cancelled</p>
+                        <p id="cancelled-count" class="text-3xl font-bold text-red-600">0</p>
+                    </div>
+                    <div class="text-4xl">❌</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bookings Table -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800">Recent Bookings</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookings-table" class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                                <div class="text-4xl mb-2">📋</div>
+                                Loading bookings...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Booking Detail Modal -->
+    <div id="detail-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-2xl font-bold text-gray-800">Booking Details</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <div id="modal-content" class="p-6">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        // Load bookings on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadBookings();
+        });
+
+        async function loadBookings() {
+            try {
+                const response = await fetch(`${API_URL}/bookings`);
+                const data = await response.json();
+
+                if (data.success) {
+                    displayBookings(data.bookings);
+                    updateStats(data.bookings);
+                }
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+                document.getElementById('bookings-table').innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-red-500">
+                            <div class="text-4xl mb-2">⚠️</div>
+                            Error loading bookings. Make sure the server is running.
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        function displayBookings(bookings) {
+            const tbody = document.getElementById('bookings-table');
+
+            if (bookings.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+                            <div class="text-4xl mb-2">📭</div>
+                            No bookings yet
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = bookings.map(booking => `
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        ${new Date(booking.submittedAt).toLocaleDateString()}<br>
+                        <span class="text-xs text-gray-500">${new Date(booking.submittedAt).toLocaleTimeString()}</span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900">${booking.name}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-900">${booking.service}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-900">${booking.email}</div>
+                        <div class="text-xs text-gray-500">${booking.phone}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-${booking.status}">
+                            ${booking.status.toUpperCase()}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <button onclick="viewDetails('${booking._id}')" class="text-blue-600 hover:text-blue-900 mr-3">View</button>
+                        <select onchange="updateStatus('${booking._id}', this.value)" class="text-xs border rounded px-2 py-1">
+                            <option value="">Change Status</option>
+                            <option value="pending" ${booking.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="confirmed" ${booking.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                            <option value="completed" ${booking.status === 'completed' ? 'selected' : ''}>Completed</option>
+                            <option value="cancelled" ${booking.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateStats(bookings) {
+            document.getElementById('total-count').textContent = bookings.length;
+            document.getElementById('pending-count').textContent = bookings.filter(b => b.status === 'pending').length;
+            document.getElementById('confirmed-count').textContent = bookings.filter(b => b.status === 'confirmed').length;
+            document.getElementById('completed-count').textContent = bookings.filter(b => b.status === 'completed').length;
+            document.getElementById('cancelled-count').textContent = bookings.filter(b => b.status === 'cancelled').length;
+        }
+
+        async function viewDetails(bookingId) {
+            try {
+                const response = await fetch(`${API_URL}/bookings/${bookingId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const booking = data.booking;
+                    document.getElementById('modal-content').innerHTML = `
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <p class="text-xs text-gray-500 mb-1">Booking ID</p>
+                                <p class="font-mono text-sm">${booking._id}</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Customer Name</p>
+                                    <p class="font-semibold">${booking.name}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Status</p>
+                                    <span class="px-3 py-1 inline-flex text-xs font-semibold rounded-full status-${booking.status}">
+                                        ${booking.status.toUpperCase()}
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Service Requested</p>
+                                <p class="font-semibold">${booking.service}</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <p class="text-xs text-gray-500 mb-2">📍 Service Address</p>
+                                <p class="font-semibold">${booking.address}</p>
+                                <p class="text-sm text-gray-600">${booking.city}, ${booking.state} ${booking.zipCode}</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Email</p>
+                                    <p><a href="mailto:${booking.email}" class="text-blue-600 hover:underline">${booking.email}</a></p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Phone</p>
+                                    <p><a href="tel:${booking.phone}" class="text-blue-600 hover:underline">${booking.phone}</a></p>
+                                </div>
+                            </div>
+                            ${booking.message ? `
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Additional Message</p>
+                                <p class="bg-gray-50 p-3 rounded">${booking.message}</p>
+                            </div>
+                            ` : ''}
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">Submitted At</p>
+                                    <p class="text-sm">${new Date(booking.submittedAt).toLocaleString()}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">IP Address</p>
+                                    <p class="text-sm font-mono">${booking.ipAddress || 'N/A'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('detail-modal').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error loading booking details:', error);
+                alert('Error loading booking details');
+            }
+        }
+
+        async function updateStatus(bookingId, newStatus) {
+            if (!newStatus) return;
+
+            try {
+                const response = await fetch(`${API_URL}/bookings/${bookingId}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Status updated successfully!');
+                    loadBookings();
+                } else {
+                    alert('Error updating status');
+                }
+            } catch (error) {
+                console.error('Error updating status:', error);
+                alert('Error updating status');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        // Close modal on outside click
+        document.getElementById('detail-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'detail-modal') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
