@@ -10,11 +10,15 @@ const Booking = require('./models/Booking');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*',
+  methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.use(express.static('public'));
+// app.use(express.static('public')); // Frontend is deployed separately
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
