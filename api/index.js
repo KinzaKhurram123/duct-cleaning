@@ -122,7 +122,7 @@ app.post('/api/submit-booking', async (req, res) => {
     const adminMailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
-      subject: '🎯 New Booking Request - PureFlow Systems',
+      subject: '🎯 New Booking Request - Pacific Duct Systems',
       html: `
         <!DOCTYPE html>
         <html>
@@ -143,7 +143,7 @@ app.post('/api/submit-booking', async (req, res) => {
           <div class="container">
             <div class="header">
               <h1>🎯 New Booking Request</h1>
-              <p>PureFlow Systems</p>
+              <p>Pacific Duct Systems</p>
             </div>
             <div class="content">
               <div class="booking-id">
@@ -181,7 +181,7 @@ app.post('/api/submit-booking', async (req, res) => {
               <div class="footer">
                 <p>Received on ${new Date().toLocaleString()}</p>
                 <p>Status: <strong>Pending</strong></p>
-                <p>PureFlow Systems - Elite Air Purification</p>
+                <p>Pacific Duct Systems - Elite Air Purification</p>
               </div>
             </div>
           </div>
@@ -194,7 +194,7 @@ app.post('/api/submit-booking', async (req, res) => {
     const customerMailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: '✅ Booking Confirmation - PureFlow Systems',
+      subject: '✅ Booking Confirmation - Pacific Duct Systems',
       html: `
         <!DOCTYPE html>
         <html>
@@ -214,7 +214,7 @@ app.post('/api/submit-booking', async (req, res) => {
           <div class="container">
             <div class="header">
               <h1>✅ Booking Confirmed!</h1>
-              <p>Thank you for choosing PureFlow Systems</p>
+              <p>Thank you for choosing Pacific Duct Systems</p>
             </div>
             <div class="content">
               <div class="booking-ref">
@@ -239,7 +239,7 @@ app.post('/api/submit-booking', async (req, res) => {
                 <p>If you have any urgent questions, please don't hesitate to contact us directly.</p>
               </div>
               <div class="footer">
-                <p>PureFlow Systems - Elite Air Purification</p>
+                <p>Pacific Duct Systems - Elite Air Purification</p>
                 <p>Hospital-grade duct sanitization for sophisticated living spaces</p>
               </div>
             </div>

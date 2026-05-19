@@ -1,4 +1,4 @@
-# PureFlow Systems - Backend Setup Guide
+# Pacific Duct Systems - Backend Setup Guide
 
 ## 📋 Prerequisites
 
@@ -43,15 +43,15 @@ This will install all required packages:
 PORT=3000
 EMAIL_USER=your-email@gmail.com
 EMAIL_PASS=xxxx xxxx xxxx xxxx  # Your App Password (remove spaces)
-ADMIN_EMAIL=admin@pureflow.com   # Where bookings will be sent
+ADMIN_EMAIL=admin@Pacific Duct.com   # Where bookings will be sent
 ```
 
 **Example:**
 ```env
 PORT=3000
-EMAIL_USER=pureflow@gmail.com
+EMAIL_USER=Pacific Duct@gmail.com
 EMAIL_PASS=abcdwxyzpqrs1234
-ADMIN_EMAIL=pureflow@gmail.com
+ADMIN_EMAIL=Pacific Duct@gmail.com
 ```
 
 ---
@@ -186,7 +186,7 @@ DuctCleaning/
 ### Option 1: Heroku (Free Tier Available)
 1. Create Heroku account
 2. Install Heroku CLI
-3. Run: `heroku create pureflow-backend`
+3. Run: `heroku create Pacific Duct-backend`
 4. Set environment variables in Heroku dashboard
 5. Deploy: `git push heroku main`
 
@@ -233,4 +233,4 @@ If you need help:
 
 ---
 
-**Made with ❤️ for PureFlow Systems**
+**Made with ❤️ for Pacific Duct Systems**
