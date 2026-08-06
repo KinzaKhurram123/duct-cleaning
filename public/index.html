@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Pacific Duct Systems | Premium Air Duct Cleaning</title>
+    <link rel="icon" type="image/png" href="pacific_logo_without_bg.png" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap"
@@ -1096,12 +1097,32 @@
         position: relative;
       }
 
+      .loader-logo-img {
+        width: 140px;
+        height: 140px;
+        object-fit: contain;
+        margin: 0 auto 16px;
+        display: block;
+        filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.55));
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .loader-spinner {
+        width: 40px;
+        height: 40px;
+        margin: 30px auto 0;
+        border: 3px solid rgba(255, 255, 255, 0.25);
+        border-top-color: #7df4ff;
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+      }
+
       .loader-logo {
-        font-size: 48px;
+        font-size: 32px;
         font-weight: 700;
         color: white;
         margin-bottom: 30px;
-        animation: pulse 2s ease-in-out infinite;
+        letter-spacing: 0.02em;
       }
 
       .dust-container {
@@ -1279,6 +1300,430 @@
         --tx: 0px;
         --ty: -110px;
       }
+
+      /* Process section: premium cinematic card */
+      .process-premium-card {
+        background: linear-gradient(145deg, #162c6d 0%, #0a101d 100%);
+        box-shadow:
+          0 40px 100px -20px rgba(0, 0, 0, 0.55),
+          0 20px 40px -20px rgba(0, 0, 0, 0.5),
+          inset 0 1px 2px rgba(255, 255, 255, 0.15),
+          inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .process-film-grain {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.05;
+        mix-blend-mode: overlay;
+        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23n)"/></svg>');
+      }
+      .process-card-sheen {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+        border-radius: inherit;
+        background: radial-gradient(
+          700px circle at var(--mx, 50%) var(--my, 50%),
+          rgba(255, 255, 255, 0.07) 0%,
+          transparent 45%
+        );
+        mix-blend-mode: screen;
+        transition: opacity 0.3s ease;
+      }
+      .text-process-silver {
+        background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+      }
+      .process-step-badge {
+        width: 64px;
+        height: 64px;
+        border-radius: 9999px;
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.02) 100%
+        );
+        border: 1px solid rgba(125, 244, 255, 0.3);
+        color: #7df4ff;
+        box-shadow:
+          0 10px 25px rgba(0, 0, 0, 0.4),
+          inset 0 1px 1px rgba(255, 255, 255, 0.15),
+          0 0 20px rgba(125, 244, 255, 0.15);
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+      .group:hover .process-step-badge {
+        background: linear-gradient(135deg, #1facb6, #003366);
+        color: #ffffff;
+        box-shadow:
+          0 10px 30px rgba(31, 172, 182, 0.5),
+          inset 0 1px 1px rgba(255, 255, 255, 0.25);
+        transform: translateY(-4px);
+      }
+
+      /* Footer aurora glow */
+      .footer-aurora-glow {
+        position: absolute;
+        bottom: -60px;
+        left: 0;
+        right: 0;
+        height: 160px;
+        background:
+          radial-gradient(55% 100% at 15% 100%, #1facb6 0%, transparent 65%),
+          radial-gradient(50% 100% at 50% 100%, #7df4ff 0%, transparent 60%),
+          radial-gradient(55% 100% at 85% 100%, #3a5f94 0%, transparent 65%);
+        filter: blur(45px) saturate(1.3);
+        opacity: 0.28;
+        transform: scaleY(0.55);
+        transform-origin: bottom;
+        transition:
+          opacity 1.4s ease,
+          transform 1.4s ease,
+          filter 1.4s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .footer-aurora-glow.in-view {
+        opacity: 0.95;
+        transform: scaleY(1);
+        filter: blur(55px) saturate(1.6);
+        animation: footer-aurora-pulse 7s ease-in-out infinite alternate;
+      }
+      @keyframes footer-aurora-pulse {
+        0% {
+          filter: blur(50px) saturate(1.5) hue-rotate(0deg);
+        }
+        100% {
+          filter: blur(65px) saturate(1.8) hue-rotate(12deg);
+        }
+      }
+
+      /* Feature carousel (services) */
+      #fc-chip-stack {
+        position: relative;
+      }
+      .fc-chip {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 22px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: transparent;
+        color: rgba(255, 255, 255, 0.6);
+        white-space: nowrap;
+        cursor: pointer;
+        transition:
+          background 0.4s ease,
+          color 0.4s ease,
+          border-color 0.4s ease;
+        transform: translateY(-50%);
+        will-change: transform, opacity;
+      }
+      .fc-chip:hover {
+        border-color: rgba(255, 255, 255, 0.4);
+        color: #ffffff;
+      }
+      .fc-chip.active {
+        background: #ffffff;
+        color: #001e40;
+        border-color: #ffffff;
+      }
+      .fc-chip .material-symbols-outlined {
+        font-size: 18px;
+        opacity: 0.7;
+      }
+      .fc-chip.active .material-symbols-outlined {
+        opacity: 1;
+      }
+      .fc-chip-label {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      #fc-card-stack {
+        perspective: 1200px;
+      }
+      .fc-card {
+        position: absolute;
+        inset: 0;
+        transition:
+          transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, opacity;
+      }
+      .fc-card::before {
+        content: "";
+        position: absolute;
+        inset: -30px;
+        background: var(--fc-glow, transparent);
+        filter: blur(45px) saturate(1.6);
+        opacity: 0;
+        z-index: -1;
+        border-radius: 28px;
+        transform: scale(0.9);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+        pointer-events: none;
+      }
+      .fc-card::after {
+        content: "";
+        position: absolute;
+        width: 55%;
+        height: 42%;
+        left: 18%;
+        bottom: -16%;
+        background: var(--fc-glow, transparent);
+        filter: blur(28px) saturate(1.6);
+        opacity: 0;
+        z-index: -2;
+        border-radius: 12px;
+        transform: skewX(-12deg) scale(0.85);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+        pointer-events: none;
+      }
+      .fc-card:hover::before {
+        opacity: 0.85;
+        transform: scale(1.04);
+      }
+      .fc-card:hover::after {
+        opacity: 0.5;
+        transform: skewX(-12deg) scale(1) translateY(10px);
+      }
+      .fc-card-inner-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 28px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 32px 28px;
+        color: #ffffff;
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .fc-card:hover .fc-card-inner-content {
+        transform: translateY(-4px);
+      }
+      .fc-card-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .fc-card-icon .material-symbols-outlined {
+        font-size: 32px;
+      }
+      .fc-card-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #001e40;
+        padding: 5px 14px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        width: fit-content;
+        margin-bottom: 14px;
+      }
+      .fc-card-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        letter-spacing: -0.01em;
+      }
+      .fc-card-desc {
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: auto;
+        padding-bottom: 20px;
+      }
+      .fc-card-footer {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .fc-card-price {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+      .fc-card-price-value {
+        font-size: 26px;
+        font-weight: 800;
+      }
+      .fc-card-price-label {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .fc-card-cta {
+        background: #ffffff;
+        color: #001e40;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        white-space: nowrap;
+      }
+      .fc-card-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      }
+      @media (max-width: 1024px) {
+        .fc-chip {
+          padding: 10px 18px;
+        }
+        .fc-card-inner-content {
+          padding: 26px 22px;
+        }
+      }
+
+      /* Coverflow testimonial carousel */
+      .coverflow-frame {
+        cursor: grab;
+        overflow: hidden;
+        padding: 40px 0;
+        outline: none;
+        touch-action: pan-y;
+        perspective: calc(var(--cf-card) * 2.6);
+      }
+      .coverflow-frame:active {
+        cursor: grabbing;
+      }
+      .coverflow-track {
+        position: relative;
+        height: var(--cf-card);
+        transform-style: preserve-3d;
+      }
+      .coverflow-card {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: var(--cf-card);
+        aspect-ratio: 1 / 1;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 25px 60px -15px rgba(0, 30, 64, 0.35);
+        will-change: transform, opacity;
+        user-select: none;
+      }
+      .coverflow-card-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: #001e40;
+      }
+      .coverflow-quote-icon {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        font-size: 40px;
+        opacity: 0.25;
+      }
+      .coverflow-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.85);
+        margin-bottom: 16px;
+        backdrop-filter: blur(6px);
+      }
+      .coverflow-stars {
+        letter-spacing: 4px;
+        font-size: 16px;
+        color: #1facb6;
+      }
+      .coverflow-caption {
+        margin-top: 16px;
+        text-align: center;
+        padding: 0 24px;
+        min-height: 96px;
+      }
+      .coverflow-quote-text {
+        max-width: 560px;
+        margin: 0 auto 12px;
+        font-size: 17px;
+        line-height: 1.6;
+        color: #001e40;
+        font-weight: 500;
+        transition: opacity 0.25s ease;
+      }
+      .coverflow-person-name {
+        font-weight: 700;
+        color: #001e40;
+        transition: opacity 0.25s ease;
+      }
+      .coverflow-person-role {
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #43474f;
+        margin-top: 4px;
+        transition: opacity 0.25s ease;
+      }
+      .coverflow-dots {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+      }
+      .coverflow-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #001e40;
+        opacity: 0.25;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.25s ease;
+        padding: 0;
+      }
+      .coverflow-dot.active {
+        opacity: 1;
+      }
     </style>
     <script>
       // Hide loader when page is fully loaded
@@ -1294,6 +1739,92 @@
       });
 
       document.addEventListener("DOMContentLoaded", function () {
+        // Hero aurora animated canvas background (theme colors)
+        (function initHeroAurora() {
+          const canvas = document.getElementById("hero-aurora-canvas");
+          if (!canvas) return;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) return;
+
+          const palette = [
+            [
+              "hsla(210, 90%, 32%, 0.55)",
+              "hsla(200, 80%, 38%, 0.3)",
+              "transparent",
+            ],
+            ["hsla(187, 90%, 65%, 0.4)", "transparent", "transparent"],
+          ];
+          const blobCount = 5;
+          const speed = 0.6;
+          let time = 0;
+          let raf = null;
+
+          function resize() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+          }
+          resize();
+          window.addEventListener("resize", resize);
+
+          function animate() {
+            time += 0.01 * speed;
+            const t = time;
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+
+            for (let i = 0; i < blobCount; i++) {
+              const layer = palette[i % palette.length];
+              const [c1, c2, c3] = layer;
+              const phase = (i / blobCount) * Math.PI * 2 + t;
+              const x =
+                w / 2 + Math.sin(phase) * (w * 0.2) + Math.cos(t * 0.5) * (w * 0.1);
+              const y =
+                h / 2 +
+                Math.cos(phase * 0.7) * (h * 0.2) +
+                Math.sin(t * 0.3) * (h * 0.1);
+              const gradient = ctx.createRadialGradient(
+                x,
+                y,
+                0,
+                x,
+                y,
+                Math.max(w, h) * 0.4,
+              );
+              gradient.addColorStop(0, c1);
+              gradient.addColorStop(0.5, c2);
+              gradient.addColorStop(1, c3);
+              ctx.fillStyle = gradient;
+              ctx.fillRect(0, 0, w, h);
+            }
+
+            ctx.globalCompositeOperation = "screen";
+            for (let i = 0; i < Math.min(2, palette.length); i++) {
+              const layer = palette[i];
+              const phase = (i / 2) * Math.PI + t * 0.8;
+              const x = w / 2 + Math.sin(phase * 1.2) * (w * 0.15);
+              const y = h / 2 + Math.cos(phase * 0.9) * (h * 0.15);
+              const gradient = ctx.createRadialGradient(
+                x,
+                y,
+                0,
+                x,
+                y,
+                Math.max(w, h) * 0.35,
+              );
+              gradient.addColorStop(0, layer[0]);
+              gradient.addColorStop(1, "transparent");
+              ctx.fillStyle = gradient;
+              ctx.fillRect(0, 0, w, h);
+            }
+            ctx.globalCompositeOperation = "source-over";
+
+            raf = requestAnimationFrame(animate);
+          }
+          raf = requestAnimationFrame(animate);
+        })();
+
         // Detect mobile device
         const isMobile = window.innerWidth <= 768;
         const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
@@ -1443,128 +1974,474 @@
 
         counters.forEach((counter) => counterObserver.observe(counter));
 
-        // Testimonial carousel
-        const testimonialCarousel = document.querySelector(
-          ".testimonial-carousel",
-        );
-        const prevBtn = document.querySelector(".carousel-prev");
-        const nextBtn = document.querySelector(".carousel-next");
+        // Process card sheen (follows mouse for a premium glass feel)
+        (function initProcessSheen() {
+          const card = document.getElementById("process-card");
+          if (!card || window.innerWidth <= 768) return;
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty("--mx", e.clientX - rect.left + "px");
+            card.style.setProperty("--my", e.clientY - rect.top + "px");
+          });
+        })();
 
-        if (testimonialCarousel && prevBtn && nextBtn) {
-          // Adjust scroll amount based on screen size
-          const getScrollAmount = () => {
-            return window.innerWidth <= 640 ? 300 : 470;
+        // Footer aurora glow (grows brighter as it enters view)
+        (function initFooterAurora() {
+          const glow = document.getElementById("footer-aurora");
+          if (!glow || !window.IntersectionObserver) return;
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                glow.classList.toggle("in-view", entry.isIntersecting);
+              });
+            },
+            { threshold: 0.15 },
+          );
+          observer.observe(document.getElementById("site-footer"));
+        })();
+
+        // Feature carousel (services)
+        (function initFeatureCarousel() {
+          const chipStack = document.getElementById("fc-chip-stack");
+          const cardStack = document.getElementById("fc-card-stack");
+          if (!chipStack || !cardStack) return;
+
+          const SERVICES = [
+            {
+              icon: "air",
+              label: "Air Duct Cleaning",
+              desc: "Complete cleaning of your HVAC air ducts to remove dust, debris, and allergens for improved air quality.",
+              price: "$199",
+              priceLabel: "Starting from",
+              cta: "Book Now",
+              gradient: "linear-gradient(135deg, #003366, #001e40)",
+            },
+            {
+              icon: "dry",
+              label: "Dryer Vent Cleaning",
+              desc: "Professional dryer vent cleaning to prevent fire hazards and improve dryer efficiency.",
+              price: "$150",
+              priceLabel: "Starting from",
+              cta: "Book Now",
+              gradient: "linear-gradient(135deg, #1facb6, #002326)",
+            },
+            {
+              icon: "mode_fan",
+              label: "Air Vent Cleaning",
+              desc: "Thorough cleaning of air vents and registers to ensure optimal airflow throughout your space.",
+              price: "$199",
+              priceLabel: "Starting from",
+              cta: "Book Now",
+              gradient: "linear-gradient(135deg, #3a5f94, #001e40)",
+            },
+            {
+              icon: "cleaning_services",
+              label: "Deep Air Vent Cleaning",
+              desc: "Intensive deep cleaning service for heavily soiled vents and hard-to-reach areas.",
+              price: "$499",
+              priceLabel: "Starting from",
+              cta: "Book Now",
+              gradient: "linear-gradient(135deg, #002326, #001e40)",
+            },
+            {
+              icon: "hvac",
+              label: "Furnace Cleaning",
+              desc: "Complete furnace cleaning and maintenance to ensure efficient heating and clean air circulation.",
+              price: "$199",
+              priceLabel: "Starting from",
+              cta: "Book Now",
+              gradient: "linear-gradient(135deg, #004f54, #001e40)",
+            },
+            {
+              icon: "fireplace",
+              label: "Chimney Cleaning",
+              desc: "Complete chimney cleaning and maintenance to ensure safe airflow, improved efficiency, and a clean, smoke-free environment in your home.",
+              price: "$199",
+              priceLabel: "Starting from",
+              cta: "Book Now",
+              gradient: "linear-gradient(135deg, #003366, #002326)",
+            },
+            {
+              icon: "contact_support",
+              label: "Air Duct System Installation",
+              desc: "Need a specialized service? We provide professional Air Duct System Installation tailored to your space, ensuring proper airflow, improved ventilation, and maximum energy efficiency for your home or business.",
+              price: "Custom",
+              priceLabel: "Quote",
+              cta: "Contact Us",
+              gradient: "linear-gradient(135deg, #1f477b, #001e40)",
+            },
+            {
+              icon: "contact_support",
+              label: "AC System Installation",
+              desc: "AC System Installation provides professional setup of air conditioning systems to ensure efficient cooling, proper airflow, and long-lasting performance for your home or business.",
+              price: "Custom",
+              priceLabel: "Quote",
+              cta: "Contact Us",
+              gradient: "linear-gradient(135deg, #003366, #1facb6)",
+            },
+            {
+              icon: "contact_support",
+              label: "Custom Solutions",
+              desc: "Need a specialized service? We offer custom solutions tailored to your specific needs. Our team provides reliable and efficient services designed to meet your exact requirements.",
+              price: "Custom",
+              priceLabel: "Quote",
+              cta: "Contact Us",
+              gradient: "linear-gradient(135deg, #002326, #003366)",
+            },
+          ];
+
+          const count = SERVICES.length;
+          const ITEM_HEIGHT = window.innerWidth <= 768 ? 50 : 58;
+          const AUTOPLAY_MS = 3000;
+
+          let step = 0;
+          let isPaused = false;
+          let autoplayInterval = null;
+
+          const wrap = (min, max, v) => {
+            const range = max - min;
+            return (((v - min) % range) + range) % range + min;
           };
 
-          let scrollAmount = getScrollAmount();
+          const currentIndex = () => ((step % count) + count) % count;
 
-          // Update scroll amount on resize
-          window.addEventListener("resize", () => {
-            scrollAmount = getScrollAmount();
-          });
-
-          prevBtn.addEventListener("click", () => {
-            testimonialCarousel.scrollBy({
-              left: -scrollAmount,
-              behavior: "smooth",
+          // Build chips
+          const chips = SERVICES.map((service, index) => {
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "fc-chip";
+            chip.innerHTML =
+              '<span class="material-symbols-outlined">' +
+              service.icon +
+              '</span><span class="fc-chip-label">' +
+              service.label +
+              "</span>";
+            chip.addEventListener("click", () => {
+              const idx = currentIndex();
+              const diff = (index - idx + count) % count;
+              if (diff > 0) step += diff;
+              render();
             });
+            chip.addEventListener("mouseenter", () => (isPaused = true));
+            chip.addEventListener("mouseleave", () => (isPaused = false));
+            chipStack.appendChild(chip);
+            return chip;
           });
 
-          nextBtn.addEventListener("click", () => {
-            testimonialCarousel.scrollBy({
-              left: scrollAmount,
-              behavior: "smooth",
+          // Build cards
+          const cards = SERVICES.map((service) => {
+            const card = document.createElement("div");
+            card.className = "fc-card";
+            card.style.setProperty("--fc-glow", service.gradient);
+
+            const inner = document.createElement("div");
+            inner.className = "fc-card-inner-content";
+            inner.style.background = service.gradient;
+            inner.innerHTML =
+              '<div class="fc-card-icon"><span class="material-symbols-outlined">' +
+              service.icon +
+              '</span></div>' +
+              '<div class="fc-card-badge">' +
+              '<span class="material-symbols-outlined" style="font-size:12px">verified</span>' +
+              service.label +
+              "</div>" +
+              '<div class="fc-card-title">' +
+              service.label +
+              "</div>" +
+              '<p class="fc-card-desc">' +
+              service.desc +
+              "</p>" +
+              '<div class="fc-card-footer">' +
+              '<div class="fc-card-price">' +
+              '<span class="fc-card-price-value">' +
+              service.price +
+              "</span>" +
+              '<span class="fc-card-price-label">' +
+              service.priceLabel +
+              "</span>" +
+              "</div>" +
+              '<button type="button" class="fc-card-cta">' +
+              service.cta +
+              "</button>" +
+              "</div>";
+            inner
+              .querySelector(".fc-card-cta")
+              .addEventListener(
+                "click",
+                () => (window.location.href = "#book"),
+              );
+            card.appendChild(inner);
+            cardStack.appendChild(card);
+            return card;
+          });
+
+          function render() {
+            const idx = currentIndex();
+
+            chips.forEach((chip, index) => {
+              const distance = index - idx;
+              const wrapped = wrap(-(count / 2), count / 2, distance);
+              chip.style.transform =
+                "translateY(calc(-50% + " + wrapped * ITEM_HEIGHT + "px))";
+              chip.style.opacity = String(
+                Math.max(0.15, 1 - Math.abs(wrapped) * 0.22),
+              );
+              chip.classList.toggle("active", index === idx);
             });
+
+            cards.forEach((card, index) => {
+              let diff = index - idx;
+              if (diff > count / 2) diff -= count;
+              if (diff < -count / 2) diff += count;
+
+              let x = 0;
+              let scale = 0.96;
+              let opacity = 0;
+              let rotate = 0;
+              let zIndex = 0;
+              let pointerEvents = "none";
+
+              if (diff === 0) {
+                x = 0;
+                scale = 1;
+                opacity = 1;
+                rotate = 0;
+                zIndex = 20;
+                pointerEvents = "auto";
+              } else if (diff === -1) {
+                x = -24;
+                scale = 0.96;
+                opacity = 0;
+                rotate = -2;
+                zIndex = 10;
+              } else if (diff === 1) {
+                x = 24;
+                scale = 0.96;
+                opacity = 0;
+                rotate = 2;
+                zIndex = 10;
+              }
+
+              card.style.transform =
+                "translateX(" +
+                x +
+                "px) scale(" +
+                scale +
+                ") rotate(" +
+                rotate +
+                "deg)";
+              card.style.opacity = String(opacity);
+              card.style.zIndex = String(zIndex);
+              card.style.pointerEvents = pointerEvents;
+            });
+          }
+
+          function nextStep() {
+            step += 1;
+            render();
+          }
+
+          render();
+
+          autoplayInterval = setInterval(() => {
+            if (!isPaused) nextStep();
+          }, AUTOPLAY_MS);
+        })();
+
+        // Coverflow testimonial carousel
+        (function initCoverflow() {
+          const root = document.getElementById("testimonial-coverflow");
+          if (!root) return;
+
+          const frame = document.getElementById("coverflow-frame");
+          const track = document.getElementById("coverflow-track");
+          const cards = Array.from(track.querySelectorAll(".coverflow-card"));
+          const quoteText = document.getElementById("coverflow-quote-text");
+          const personName = document.getElementById("coverflow-person-name");
+          const personRole = document.getElementById("coverflow-person-role");
+          const dotsWrap = document.getElementById("coverflow-dots");
+          const prevBtn = document.querySelector(".carousel-prev");
+          const nextBtn = document.querySelector(".carousel-next");
+
+          const count = cards.length;
+          const rotate = 44;
+          const depth = 0.6;
+          const falloff = 0.56;
+          const fade = 0.12;
+          const gap = 0.14;
+          const loop = true;
+
+          let width = 0;
+          let pos = 0;
+          let target = 0;
+          let selected = 0;
+          let raf = null;
+
+          const dots = cards.map((card, i) => {
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.className = "coverflow-dot" + (i === 0 ? " active" : "");
+            dot.setAttribute("aria-label", "Go to testimonial " + (i + 1));
+            dot.addEventListener("click", () => goTo(i));
+            dotsWrap.appendChild(dot);
+            return dot;
           });
 
-          // Auto-play carousel (pause on mobile to save battery)
-          const isMobile = window.innerWidth <= 768;
-          const autoPlayDuration = isMobile ? 7000 : 5000;
+          function indexAt(p) {
+            return ((Math.round(p) % count) + count) % count;
+          }
 
-          let autoPlayInterval = setInterval(() => {
-            if (
-              testimonialCarousel.scrollLeft >=
-              testimonialCarousel.scrollWidth -
-                testimonialCarousel.clientWidth -
-                10
-            ) {
-              testimonialCarousel.scrollTo({ left: 0, behavior: "smooth" });
-            } else {
-              testimonialCarousel.scrollBy({
-                left: scrollAmount,
-                behavior: "smooth",
-              });
+          function updateCaption(index) {
+            const card = cards[index];
+            quoteText.textContent = '"' + card.dataset.quote + '"';
+            personName.textContent = card.dataset.name;
+            personRole.textContent = card.dataset.role;
+            dots.forEach((d, i) => d.classList.toggle("active", i === index));
+          }
+
+          function paint() {
+            if (!width) return;
+            const pitch = width * (1 + gap);
+
+            cards.forEach((card, index) => {
+              let offset = index - pos;
+              if (loop) {
+                offset = ((offset % count) + count) % count;
+                if (offset > count / 2) offset -= count;
+              }
+              const distance = Math.abs(offset);
+              const ramp = Math.pow(distance, falloff);
+              const tilt =
+                Math.min(rotate * ramp, 82) * Math.sign(offset || 0);
+
+              card.style.transform =
+                "translateX(calc(-50% + " +
+                offset * pitch +
+                "px)) translateZ(" +
+                -depth * width * ramp +
+                "px) rotateY(" +
+                -tilt +
+                "deg)";
+
+              const edge = loop
+                ? Math.min(1, Math.max(0, count / 2 - distance))
+                : 1;
+              card.style.opacity = String(
+                Math.max(0, 1 - fade * distance) * edge,
+              );
+              card.style.zIndex = String(100 - Math.round(distance));
+            });
+          }
+
+          function settle(newTarget) {
+            if (raf !== null) cancelAnimationFrame(raf);
+            target = newTarget;
+            const nextSelected = indexAt(target);
+            if (nextSelected !== selected) {
+              selected = nextSelected;
+              updateCaption(selected);
             }
-          }, autoPlayDuration);
 
-          // Pause on hover (desktop) or touch (mobile)
-          testimonialCarousel.addEventListener("mouseenter", () => {
-            if (window.innerWidth > 768) {
-              clearInterval(autoPlayInterval);
+            const step = () => {
+              const remaining = target - pos;
+              if (Math.abs(remaining) < 0.0004) {
+                pos = target;
+                paint();
+                raf = null;
+                return;
+              }
+              pos += remaining * 0.16;
+              paint();
+              raf = requestAnimationFrame(step);
+            };
+            raf = requestAnimationFrame(step);
+          }
+
+          function goTo(index) {
+            const newTarget =
+              index + Math.round((target - index) / count) * count;
+            settle(newTarget);
+          }
+
+          function nudge(by) {
+            settle(Math.round(target) + by);
+          }
+
+          function measure() {
+            const card = cards[0];
+            if (!card) return;
+            width = card.offsetWidth;
+            paint();
+          }
+
+          measure();
+          window.addEventListener("resize", measure);
+
+          updateCaption(0);
+
+          if (prevBtn) prevBtn.addEventListener("click", () => nudge(-1));
+          if (nextBtn) nextBtn.addEventListener("click", () => nudge(1));
+
+          frame.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              nudge(-1);
+            } else if (e.key === "ArrowRight") {
+              e.preventDefault();
+              nudge(1);
             }
           });
 
-          testimonialCarousel.addEventListener(
-            "touchstart",
-            () => {
-              clearInterval(autoPlayInterval);
-            },
-            { passive: true },
-          );
-
-          testimonialCarousel.addEventListener("mouseleave", () => {
-            if (window.innerWidth > 768) {
-              autoPlayInterval = setInterval(() => {
-                if (
-                  testimonialCarousel.scrollLeft >=
-                  testimonialCarousel.scrollWidth -
-                    testimonialCarousel.clientWidth -
-                    10
-                ) {
-                  testimonialCarousel.scrollTo({ left: 0, behavior: "smooth" });
-                } else {
-                  testimonialCarousel.scrollBy({
-                    left: scrollAmount,
-                    behavior: "smooth",
-                  });
-                }
-              }, autoPlayDuration);
+          // Drag / swipe support
+          let drag = null;
+          frame.addEventListener("pointerdown", (e) => {
+            if (raf !== null) {
+              cancelAnimationFrame(raf);
+              raf = null;
             }
+            frame.setPointerCapture(e.pointerId);
+            target = pos;
+            drag = { id: e.pointerId, x: e.clientX, pos, v: 0, t: performance.now() };
           });
 
-          // Resume auto-play after touch ends (with delay)
-          testimonialCarousel.addEventListener(
-            "touchend",
-            () => {
-              setTimeout(() => {
-                autoPlayInterval = setInterval(() => {
-                  if (
-                    testimonialCarousel.scrollLeft >=
-                    testimonialCarousel.scrollWidth -
-                      testimonialCarousel.clientWidth -
-                      10
-                  ) {
-                    testimonialCarousel.scrollTo({
-                      left: 0,
-                      behavior: "smooth",
-                    });
-                  } else {
-                    testimonialCarousel.scrollBy({
-                      left: scrollAmount,
-                      behavior: "smooth",
-                    });
-                  }
-                }, autoPlayDuration);
-              }, 3000);
-            },
-            { passive: true },
-          );
-        }
+          frame.addEventListener("pointermove", (e) => {
+            if (!drag || drag.id !== e.pointerId) return;
+            const pitch = width * (1 + gap);
+            if (!pitch) return;
+            const now = performance.now();
+            const previous = pos;
+            pos = drag.pos - (e.clientX - drag.x) / pitch;
+            drag.v = ((pos - previous) / Math.max(now - drag.t, 1)) * 1000;
+            drag.t = now;
+
+            const index = indexAt(pos);
+            if (index !== selected) {
+              selected = index;
+              updateCaption(selected);
+            }
+            paint();
+          });
+
+          const endDrag = (e) => {
+            if (!drag || drag.id !== e.pointerId) return;
+            const carried = Math.max(-2, Math.min(2, drag.v * 0.18));
+            drag = null;
+            settle(Math.round(pos + carried));
+          };
+          frame.addEventListener("pointerup", endDrag);
+          frame.addEventListener("pointercancel", endDrag);
+
+          // Auto-play, pause on interaction
+          const isMobileView = window.innerWidth <= 768;
+          const autoPlayDuration = isMobileView ? 6000 : 4500;
+          let autoPlayInterval = setInterval(() => nudge(1), autoPlayDuration);
+          const stopAutoPlay = () => clearInterval(autoPlayInterval);
+          frame.addEventListener("pointerdown", stopAutoPlay);
+          frame.addEventListener("mouseenter", stopAutoPlay);
+        })();
 
         // Perspective Tilt on Mouse Move
-        const tiltCards = document.querySelectorAll(
-          ".card-3d, .testimonial-3d",
-        );
+        const tiltCards = document.querySelectorAll(".card-3d");
 
         tiltCards.forEach((card) => {
           // Only enable tilt on desktop
@@ -1590,52 +2467,10 @@
           }
         });
 
-        // Touch swipe for carousel
-        if (testimonialCarousel) {
-          let touchStartX = 0;
-          let touchEndX = 0;
-          let scrollStartX = 0;
-
-          testimonialCarousel.addEventListener(
-            "touchstart",
-            (e) => {
-              touchStartX = e.changedTouches[0].screenX;
-              scrollStartX = testimonialCarousel.scrollLeft;
-            },
-            { passive: true },
-          );
-
-          testimonialCarousel.addEventListener(
-            "touchmove",
-            (e) => {
-              touchEndX = e.changedTouches[0].screenX;
-            },
-            { passive: true },
-          );
-
-          testimonialCarousel.addEventListener("touchend", () => {
-            const swipeDistance = touchStartX - touchEndX;
-            const threshold = 50;
-
-            if (Math.abs(swipeDistance) > threshold) {
-              if (swipeDistance > 0) {
-                // Swipe left - next
-                testimonialCarousel.scrollBy({ left: 320, behavior: "smooth" });
-              } else {
-                // Swipe right - previous
-                testimonialCarousel.scrollBy({
-                  left: -320,
-                  behavior: "smooth",
-                });
-              }
-            }
-          });
-        }
-
         // Touch tap for cards on mobile
         if (window.innerWidth <= 768) {
           const cards = document.querySelectorAll(
-            ".service-card, .testimonial-3d",
+            ".service-card",
           );
           cards.forEach((card) => {
             card.addEventListener("touchend", function (e) {
@@ -1880,20 +2715,13 @@
     <!-- Page Loader -->
     <div id="page-loader">
       <div class="loader-content">
+        <img
+          src="pacific_logo_without_bg.png"
+          alt="Pacific Duct Systems"
+          class="loader-logo-img"
+        />
         <div class="loader-logo">Pacific Duct</div>
-        <div class="dust-container">
-          <div class="duct-icon"></div>
-          <div class="cleaning-wipe"></div>
-          <div class="dust-particle"></div>
-          <div class="dust-particle"></div>
-          <div class="dust-particle"></div>
-          <div class="dust-particle"></div>
-          <div class="dust-particle"></div>
-        </div>
-        <div class="loader-text">Cleaning the air...</div>
-        <div class="loader-subtext">
-          Please wait while we prepare your experience
-        </div>
+        <div class="loader-spinner"></div>
       </div>
     </div>
 
@@ -1904,10 +2732,17 @@
       <div
         class="flex justify-between items-center max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop h-16 md:h-20"
       >
-        <div
-          class="font-headline-md text-xl md:text-headline-md font-bold tracking-tight text-primary"
-        >
-          Pacific Duct
+        <div class="flex items-center gap-2 md:gap-3">
+          <img
+            src="pacific_logo_without_bg.png"
+            alt="Pacific Duct Systems logo"
+            class="h-14 md:h-16 w-auto object-contain"
+          />
+          <span
+            class="font-headline-md text-lg md:text-headline-md font-bold tracking-tight text-primary"
+          >
+            Pacific Duct
+          </span>
         </div>
         <nav class="hidden md:flex items-center gap-stack-md">
           <a
@@ -2010,22 +2845,16 @@
     <main>
       <!-- Hero Section -->
       <section
-        class="relative min-h-screen flex items-center pt-16 md:pt-20 overflow-hidden"
+        class="relative min-h-screen flex items-center pt-16 md:pt-20 overflow-hidden bg-primary"
       >
         <!-- Background -->
         <div class="absolute inset-0 z-0">
-          <!-- Background Image -->
-          <img
-            alt="Pure Flow Background"
-            class="parallax-bg w-full h-full object-cover opacity-60"
-            src="background.png"
-          />
+          <!-- Animated Aurora Canvas Background -->
+          <canvas id="hero-aurora-canvas" class="absolute inset-0 w-full h-full"></canvas>
           <!-- Gradient Overlay for text readability -->
           <div
-            class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/70"
+            class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/60 to-primary/20"
           ></div>
-          <!-- Aurora effect (subtle) -->
-          <div class="aurora-bg opacity-30"></div>
           <!-- Floating Particles -->
           <div class="particle"></div>
           <div class="particle"></div>
@@ -2043,26 +2872,26 @@
         >
           <div class="space-y-4 md:space-y-stack-md reveal">
             <div
-              class="inline-flex items-center gap-2 px-3 md:px-4 py-2 rounded-full glass-card border-tertiary-fixed/30 text-xs md:text-sm"
+              class="inline-flex items-center gap-2 px-3 md:px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-tertiary-fixed/30 text-xs md:text-sm"
             >
               <span
-                class="material-symbols-outlined text-on-tertiary-container text-[16px] md:text-[20px]"
+                class="material-symbols-outlined text-tertiary-fixed text-[16px] md:text-[20px]"
                 style="font-variation-settings: &quot;FILL&quot; 1"
                 >verified</span
               >
               <span
-                class="text-label-md font-label-md text-on-tertiary-container"
+                class="text-label-md font-label-md text-white"
                 >Precision Certified Air Systems</span
               >
             </div>
             <h1
-              class="text-4xl md:text-5xl lg:text-display-lg text-primary tracking-tight leading-tight font-bold"
+              class="text-4xl md:text-5xl lg:text-display-lg text-white tracking-tight leading-tight font-bold"
             >
               Elite Air <br />
-              <span class="text-on-primary-container">Purification</span>
+              <span class="text-tertiary-fixed">Purification</span>
             </h1>
             <p
-              class="text-base md:text-lg lg:text-body-lg text-on-surface-variant max-w-[500px]"
+              class="text-base md:text-lg lg:text-body-lg text-white/80 max-w-[500px]"
             >
               Experience the ultimate indoor air standard. Hospital-grade duct
               sanitization for sophisticated living spaces.
@@ -2077,7 +2906,7 @@
                 Secure Appointment
               </button>
               <button
-                class="ripple bg-white/50 backdrop-blur-md text-primary px-6 md:px-10 py-3 md:py-4 rounded-lg font-label-md border border-outline-variant hover:bg-white transition-all text-sm md:text-base"
+                class="ripple bg-white/10 backdrop-blur-md text-white px-6 md:px-10 py-3 md:py-4 rounded-lg font-label-md border border-white/30 hover:bg-white/20 transition-all text-sm md:text-base"
                 onclick="window.location.href = '#book'"
               >
                 Get Pricing
@@ -2161,370 +2990,33 @@
             </p>
           </div>
           <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-gutter"
+            id="feature-carousel"
+            class="relative overflow-hidden rounded-[2rem] lg:rounded-[3rem] flex flex-col lg:flex-row min-h-[600px] lg:min-h-[560px] border border-outline-variant/40 reveal"
           >
-            <!-- Service 1: Air Duct Cleaning -->
+            <!-- Chip stepper -->
             <div
-              class="card-3d service-card glass-card p-6 md:p-8 lg:p-stack-md rounded-xl group reveal"
+              class="w-full lg:w-[38%] min-h-[280px] md:min-h-[340px] lg:h-auto relative z-30 flex flex-col items-start justify-center overflow-hidden px-6 md:px-12 lg:pl-14 bg-primary"
             >
-              <div class="card-3d-inner">
-                <div
-                  class="icon-wrapper w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-secondary-fixed flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary-container group-hover:text-white transition-colors duration-500"
-                >
-                  <span
-                    class="material-symbols-outlined text-primary group-hover:text-white text-[28px] md:text-[32px] transition-colors"
-                    >air</span
-                  >
-                </div>
-                <h3
-                  class="text-xl md:text-2xl lg:text-headline-md text-primary mb-2 md:mb-3 font-semibold"
-                >
-                  Air Duct Cleaning
-                </h3>
-                <p
-                  class="text-on-surface-variant text-sm md:text-base leading-relaxed mb-4"
-                >
-                  Complete cleaning of your HVAC air ducts to remove dust,
-                  debris, and allergens for improved air quality.
-                </p>
-                <div class="flex items-baseline gap-2 mb-4">
-                  <span class="text-2xl md:text-3xl font-bold text-primary"
-                    >$199</span
-                  >
-                  <span class="text-sm text-on-surface-variant"
-                    >Starting from</span
-                  >
-                </div>
-                <button
-                  onclick="window.location.href = '#book'"
-                  class="w-full bg-primary text-white py-2 md:py-3 rounded-lg hover:bg-primary-container transition-all text-sm md:text-base font-semibold"
-                >
-                  Book Now
-                </button>
-              </div>
+              <div
+                class="absolute inset-x-0 top-0 h-12 md:h-16 bg-gradient-to-b from-primary via-primary/80 to-transparent z-40 pointer-events-none"
+              ></div>
+              <div
+                class="absolute inset-x-0 bottom-0 h-12 md:h-16 bg-gradient-to-t from-primary via-primary/80 to-transparent z-40 pointer-events-none"
+              ></div>
+              <div
+                id="fc-chip-stack"
+                class="relative w-full h-[280px] md:h-[340px] flex items-center justify-start z-20"
+              ></div>
             </div>
 
-            <!-- Service 2: Dryer Vent Cleaning -->
+            <!-- Active service panel -->
             <div
-              class="card-3d service-card glass-card p-6 md:p-8 lg:p-stack-md rounded-xl group reveal"
+              class="flex-1 min-h-[420px] md:min-h-[480px] relative bg-surface-container-low flex items-center justify-center py-10 md:py-14 px-6 md:px-10 border-t lg:border-t-0 lg:border-l border-outline-variant/20"
             >
-              <div class="card-3d-inner">
-                <div
-                  class="icon-wrapper w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-secondary-fixed flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary-container group-hover:text-white transition-colors duration-500"
-                >
-                  <span
-                    class="material-symbols-outlined text-primary group-hover:text-white text-[28px] md:text-[32px] transition-colors"
-                    >dry</span
-                  >
-                </div>
-                <h3
-                  class="text-xl md:text-2xl lg:text-headline-md text-primary mb-2 md:mb-3 font-semibold"
-                >
-                  Dryer Vent Cleaning
-                </h3>
-                <p
-                  class="text-on-surface-variant text-sm md:text-base leading-relaxed mb-4"
-                >
-                  Professional dryer vent cleaning to prevent fire hazards and
-                  improve dryer efficiency.
-                </p>
-                <div class="flex items-baseline gap-2 mb-4">
-                  <span class="text-2xl md:text-3xl font-bold text-primary"
-                    >$150</span
-                  >
-                  <span class="text-sm text-on-surface-variant"
-                    >Starting from</span
-                  >
-                </div>
-                <button
-                  onclick="window.location.href = '#book'"
-                  class="w-full bg-primary text-white py-2 md:py-3 rounded-lg hover:bg-primary-container transition-all text-sm md:text-base font-semibold"
-                >
-                  Book Now
-                </button>
-              </div>
-            </div>
-
-            <!-- Service 3: Air Vent Cleaning -->
-            <div
-              class="card-3d service-card glass-card p-6 md:p-8 lg:p-stack-md rounded-xl group reveal"
-            >
-              <div class="card-3d-inner">
-                <div
-                  class="icon-wrapper w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-secondary-fixed flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary-container group-hover:text-white transition-colors duration-500"
-                >
-                  <span
-                    class="material-symbols-outlined text-primary group-hover:text-white text-[28px] md:text-[32px] transition-colors"
-                    >mode_fan</span
-                  >
-                </div>
-                <h3
-                  class="text-xl md:text-2xl lg:text-headline-md text-primary mb-2 md:mb-3 font-semibold"
-                >
-                  Air Vent Cleaning
-                </h3>
-                <p
-                  class="text-on-surface-variant text-sm md:text-base leading-relaxed mb-4"
-                >
-                  Thorough cleaning of air vents and registers to ensure optimal
-                  airflow throughout your space.
-                </p>
-                <div class="flex items-baseline gap-2 mb-4">
-                  <span class="text-2xl md:text-3xl font-bold text-primary"
-                    >$199</span
-                  >
-                  <span class="text-sm text-on-surface-variant"
-                    >Starting from</span
-                  >
-                </div>
-                <button
-                  onclick="window.location.href = '#book'"
-                  class="w-full bg-primary text-white py-2 md:py-3 rounded-lg hover:bg-primary-container transition-all text-sm md:text-base font-semibold"
-                >
-                  Book Now
-                </button>
-              </div>
-            </div>
-
-            <!-- Service 4: Deep Air Vent Cleaning -->
-            <div
-              class="card-3d service-card glass-card p-6 md:p-8 lg:p-stack-md rounded-xl group reveal"
-            >
-              <div class="card-3d-inner">
-                <div
-                  class="icon-wrapper w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-secondary-fixed flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary-container group-hover:text-white transition-colors duration-500"
-                >
-                  <span
-                    class="material-symbols-outlined text-primary group-hover:text-white text-[28px] md:text-[32px] transition-colors"
-                    >cleaning_services</span
-                  >
-                </div>
-                <h3
-                  class="text-xl md:text-2xl lg:text-headline-md text-primary mb-2 md:mb-3 font-semibold"
-                >
-                  Deep Air Vent Cleaning
-                </h3>
-                <p
-                  class="text-on-surface-variant text-sm md:text-base leading-relaxed mb-4"
-                >
-                  Intensive deep cleaning service for heavily soiled vents and
-                  hard-to-reach areas.
-                </p>
-                <div class="flex items-baseline gap-2 mb-4">
-                  <span class="text-2xl md:text-3xl font-bold text-primary"
-                    >$499</span
-                  >
-                  <span class="text-sm text-on-surface-variant"
-                    >Starting from</span
-                  >
-                </div>
-                <button
-                  onclick="window.location.href = '#book'"
-                  class="w-full bg-primary text-white py-2 md:py-3 rounded-lg hover:bg-primary-container transition-all text-sm md:text-base font-semibold"
-                >
-                  Book Now
-                </button>
-              </div>
-            </div>
-
-            <!-- Service 5: Furnace Cleaning -->
-            <div
-              class="card-3d service-card glass-card p-6 md:p-8 lg:p-stack-md rounded-xl group reveal"
-            >
-              <div class="card-3d-inner">
-                <div
-                  class="icon-wrapper w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-secondary-fixed flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary-container group-hover:text-white transition-colors duration-500"
-                >
-                  <span
-                    class="material-symbols-outlined text-primary group-hover:text-white text-[28px] md:text-[32px] transition-colors"
-                    >hvac</span
-                  >
-                </div>
-                <h3
-                  class="text-xl md:text-2xl lg:text-headline-md text-primary mb-2 md:mb-3 font-semibold"
-                >
-                  Furnace Cleaning
-                </h3>
-                <p
-                  class="text-on-surface-variant text-sm md:text-base leading-relaxed mb-4"
-                >
-                  Complete furnace cleaning and maintenance to ensure efficient
-                  heating and clean air circulation.
-                </p>
-                <div class="flex items-baseline gap-2 mb-4">
-                  <span class="text-2xl md:text-3xl font-bold text-primary"
-                    >$199</span
-                  >
-                  <span class="text-sm text-on-surface-variant"
-                    >Starting from</span
-                  >
-                </div>
-                <button
-                  onclick="window.location.href = '#book'"
-                  class="w-full bg-primary text-white py-2 md:py-3 rounded-lg hover:bg-primary-container transition-all text-sm md:text-base font-semibold"
-                >
-                  Book Now
-                </button>
-              </div>
-            </div>
-            <div
-              class="card-3d service-card glass-card p-6 md:p-8 lg:p-stack-md rounded-xl group reveal"
-            >
-              <div class="card-3d-inner">
-                <div
-                  class="icon-wrapper w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-secondary-fixed flex items-center justify-center mb-4 md:mb-6 group-hover:bg-primary-container group-hover:text-white transition-colors duration-500"
-                >
-                  <span
-                    class="material-symbols-outlined text-primary group-hover:text-white text-[28px] md:text-[32px] transition-colors"
-                    >fireplace</span
-                  >
-                </div>
-                <h3
-                  class="text-xl md:text-2xl lg:text-headline-md text-primary mb-2 md:mb-3 font-semibold"
-                >
-                  Chimney cleaning
-                </h3>
-                <p
-                  class="text-on-surface-variant text-sm md:text-base leading-relaxed mb-4"
-                >
-                  Complete chimney cleaning and maintenance to ensure safe
-                  airflow, improved efficiency, and a clean, smoke-free
-                  environment in your home.
-                </p>
-                <div class="flex items-baseline gap-2 mb-4">
-                  <span class="text-2xl md:text-3xl font-bold text-primary"
-                    >$199</span
-                  >
-                  <span class="text-sm text-on-surface-variant"
-                    >Starting from</span
-                  >
-                </div>
-                <button
-                  onclick="window.location.href = '#book'"
-                  class="w-full bg-primary text-white py-2 md:py-3 rounded-lg hover:bg-primary-container transition-all text-sm md:text-base font-semibold"
-                >
-                  Book Now
-                </button>
-              </div>
-            </div>
-            <div
-              class="card-3d service-card glass-card p-6 md:p-8 lg:p-stack-md rounded-xl group reveal bg-gradient-to-br from-primary-container to-primary"
-            >
-              <div class="card-3d-inner text-white">
-                <div
-                  class="icon-wrapper w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/20 flex items-center justify-center mb-4 md:mb-6 transition-colors duration-500"
-                >
-                  <span
-                    class="material-symbols-outlined text-white text-[28px] md:text-[32px]"
-                    >contact_support</span
-                  >
-                </div>
-                <h3
-                  class="text-xl md:text-2xl lg:text-headline-md text-white mb-2 md:mb-3 font-semibold"
-                >
-                  Air Duct System Installation
-                </h3>
-                <p
-                  class="text-white/90 text-sm md:text-base leading-relaxed mb-4"
-                >
-                  Need a specialized service? We provide professional Air Duct
-                  System Installation tailored to your space, ensuring proper
-                  airflow, improved ventilation, and maximum energy efficiency
-                  for your home or business.
-                </p>
-                <div class="flex items-baseline gap-2 mb-4">
-                  <span class="text-2xl md:text-3xl font-bold text-white"
-                    >Custom</span
-                  >
-                  <span class="text-sm text-white/80">Quote</span>
-                </div>
-                <button
-                  onclick="window.location.href = '#book'"
-                  class="w-full bg-white text-primary py-2 md:py-3 rounded-lg font-semibold hover:bg-white/90 transition-all text-sm md:text-base"
-                >
-                  Contact Us
-                </button>
-              </div>
-            </div>
-            <!-- Call to Action Card -->
-
-            <div
-              class="card-3d service-card glass-card p-6 md:p-8 lg:p-stack-md rounded-xl group reveal bg-gradient-to-br from-primary-container to-primary"
-            >
-              <div class="card-3d-inner text-white">
-                <div
-                  class="icon-wrapper w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/20 flex items-center justify-center mb-4 md:mb-6 transition-colors duration-500"
-                >
-                  <span
-                    class="material-symbols-outlined text-white text-[28px] md:text-[32px]"
-                    >contact_support</span
-                  >
-                </div>
-                <h3
-                  class="text-xl md:text-2xl lg:text-headline-md text-white mb-2 md:mb-3 font-semibold"
-                >
-                  AC System Installation
-                </h3>
-                <p
-                  class="text-white/90 text-sm md:text-base leading-relaxed mb-4"
-                >
-                  AC System Installation provides professional setup of air
-                  conditioning systems to ensure efficient cooling, proper
-                  airflow, and long-lasting performance for your home or
-                  business.
-                </p>
-                <div class="flex items-baseline gap-2 mb-4">
-                  <span class="text-2xl md:text-3xl font-bold text-white"
-                    >Custom</span
-                  >
-                  <span class="text-sm text-white/80">Quote</span>
-                </div>
-                <button
-                  onclick="window.location.href = '#book'"
-                  class="w-full bg-white text-primary py-2 md:py-3 rounded-lg font-semibold hover:bg-white/90 transition-all text-sm md:text-base"
-                >
-                  Contact Us
-                </button>
-              </div>
-            </div>
-
-            <div
-              class="card-3d service-card glass-card p-6 md:p-8 lg:p-stack-md rounded-xl group reveal bg-gradient-to-br from-primary-container to-primary"
-            >
-              <div class="card-3d-inner text-white">
-                <div
-                  class="icon-wrapper w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/20 flex items-center justify-center mb-4 md:mb-6 transition-colors duration-500"
-                >
-                  <span
-                    class="material-symbols-outlined text-white text-[28px] md:text-[32px]"
-                    >contact_support</span
-                  >
-                </div>
-                <h3
-                  class="text-xl md:text-2xl lg:text-headline-md text-white mb-2 md:mb-3 font-semibold"
-                >
-                  Custom Solutions
-                </h3>
-                <p
-                  class="text-white/90 text-sm md:text-base leading-relaxed mb-4"
-                >
-                  Need a specialized service? We offer custom solutions tailored
-                  to your specific needs. Our team provides reliable and
-                  efficient services designed to meet your exact requirements.
-                </p>
-                <div class="flex items-baseline gap-2 mb-4">
-                  <span class="text-2xl md:text-3xl font-bold text-white"
-                    >Custom</span
-                  >
-                  <span class="text-sm text-white/80">Quote</span>
-                </div>
-                <button
-                  onclick="window.location.href = '#book'"
-                  class="w-full bg-white text-primary py-2 md:py-3 rounded-lg font-semibold hover:bg-white/90 transition-all text-sm md:text-base"
-                >
-                  Contact Us
-                </button>
-              </div>
+              <div
+                id="fc-card-stack"
+                class="relative w-full max-w-[460px] min-h-[380px] flex items-center justify-center"
+              ></div>
             </div>
           </div>
         </div>
@@ -2593,20 +3085,33 @@
                   </div>
                 </div>
               </div>
-              <!-- <div
-                class="mt-8 md:mt-12 flex flex-wrap gap-4 md:gap-6 items-center"
+              <div
+                class="mt-8 md:mt-12 flex flex-wrap gap-3 md:gap-4 items-center"
               >
-                <img
-                  alt="Trust Badge 1"
-                  class="h-10 md:h-12 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQqPqsvoXkWNBGf39B3ob1ySaPx5cBp_sFDIdV6OoBeUKOuabPyCpOUIrPJe5LvOmq8I9znfEEr_S-fq40Im5JqrsMvZCUiHwjJ3baRApKOctjDufBV6gPM0ssQCYrsOZLrqGNdB8ZyTu6-iDOBDU34Yz9FvI0jq_lvhw0gRO7_8dZPvABvxLUC854MIi4s0WBjniiZXlEDlSc5GgtgGQSyDXBw1dnMQVSkepifJzWI2i0c1hTYAwpuXfCAtHlrhGRKNMNBQJ4jWjS"
-                />
-                <img
-                  alt="Trust Badge 2"
-                  class="h-10 md:h-12 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBECanJCJP22DKwTgMk5XVRjRkHXGB3Auq1ivC6oe7TGI2LIK9AZmzXBMZF1KtsawariS4nw0bnkg-Rhjxie0PpTefh7R5w9E8nYTvXgBNZfPClUVl1wzEkm3JlZIxQWk-A4SztwqK-UHJIC364JS_ySSDKLVjFcYS6zGJ_xLRBsTHyBCsW3rEKfDE3zUabd0U6Ne6wkk5TVIKnt1SsZFGSwS2Y9XB2sMvstTJMcMDDFbp0kNl0ZASNmer2KijFhYk9NAW2SXI6jmfV"
-                />
-              </div> -->
+                <div
+                  class="flex items-center gap-2 bg-white border border-outline-variant rounded-xl px-4 py-3 shadow-sm hover:shadow-md hover:border-primary/40 transition-all cursor-pointer"
+                >
+                  <span class="material-symbols-outlined text-primary text-[22px]"
+                    >verified</span
+                  >
+                  <span
+                    class="text-xs font-bold text-primary uppercase tracking-wider leading-tight"
+                    >NADCA<br />Certified</span
+                  >
+                </div>
+                <div
+                  class="flex items-center gap-2 bg-white border border-outline-variant rounded-xl px-4 py-3 shadow-sm hover:shadow-md hover:border-primary/40 transition-all cursor-pointer"
+                >
+                  <span
+                    class="material-symbols-outlined text-on-tertiary-container text-[22px]"
+                    >eco</span
+                  >
+                  <span
+                    class="text-xs font-bold text-primary uppercase tracking-wider leading-tight"
+                    >EPA<br />Approved</span
+                  >
+                </div>
+              </div>
             </div>
             <div class="grid grid-cols-2 gap-4 md:gap-6 lg:gap-gutter reveal">
               <div
@@ -2661,142 +3166,7 @@
           </div>
         </div>
       </section>
-      <!-- Why Choose Us (Revitalized) -->
-      <!-- <section id="why-us" class="py-12 md:py-16 lg:py-stack-lg overflow-hidden bg-white">
-        <div class="max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop">
-          <div class="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-stack-lg items-center">
-            <div class="reveal">
-              <h2
-                class="text-3xl md:text-4xl lg:text-headline-lg text-primary mb-6 md:mb-8 lg:mb-stack-md font-bold"
-              >
-                Why Choose Pacific Duct Systems
-              </h2>
-              <div class="space-y-6 md:space-y-8">
-                <div class="flex gap-4 md:gap-5 group">
-                  <div
-                    class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 bg-tertiary-fixed/30 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform"
-                  >
-                    <span class="material-symbols-outlined font-bold text-xl md:text-2xl"
-                      >verified</span
-                    >
-                  </div>
-                  <div>
-                    <div
-                      class="text-lg md:text-xl lg:text-headline-md text-primary font-semibold"
-                    >
-                      Certified Professionals
-                    </div>
-                    <p class="text-on-surface-variant mt-1 text-sm md:text-base">
-                      Our team is fully certified and trained in the latest air duct cleaning techniques and safety standards.
-                    </p>
-                  </div>
-                </div>
-                <div class="flex gap-4 md:gap-5 group">
-                  <div
-                    class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 bg-tertiary-fixed/30 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform"
-                  >
-                    <span class="material-symbols-outlined font-bold text-xl md:text-2xl"
-                      >payments</span
-                    >
-                  </div>
-                  <div>
-                    <div
-                      class="text-lg md:text-xl lg:text-headline-md text-primary font-semibold"
-                    >
-                      Transparent Pricing
-                    </div>
-                    <p class="text-on-surface-variant mt-1 text-sm md:text-base">
-                      No hidden fees or surprise charges. What you see is what you pay.
-                    </p>
-                  </div>
-                </div>
-                <div class="flex gap-4 md:gap-5 group">
-                  <div
-                    class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 bg-tertiary-fixed/30 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform"
-                  >
-                    <span class="material-symbols-outlined font-bold text-xl md:text-2xl"
-                      >schedule</span
-                    >
-                  </div>
-                  <div>
-                    <div
-                      class="text-lg md:text-xl lg:text-headline-md text-primary font-semibold"
-                    >
-                      Same-Day Service Available
-                    </div>
-                    <p class="text-on-surface-variant mt-1 text-sm md:text-base">
-                      Need urgent service? We offer same-day appointments for emergency situations.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-8 md:mt-12 flex flex-wrap gap-4 md:gap-6 items-center">
-                <!-- NADCA Badge -->
-                <div class="flex items-center gap-2 bg-white/80 border border-outline-variant rounded-xl px-4 py-2 shadow-sm grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
-                  <span class="material-symbols-outlined text-primary text-[22px]">verified</span>
-                  <span class="text-xs font-bold text-primary uppercase tracking-wider">NADCA<br>Certified</span>
-                </div>
-                <!-- EPA Badge -->
-                <div class="flex items-center gap-2 bg-white/80 border border-outline-variant rounded-xl px-4 py-2 shadow-sm grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer">
-                  <span class="material-symbols-outlined text-on-tertiary-container text-[22px]">eco</span>
-                  <span class="text-xs font-bold text-primary uppercase tracking-wider">EPA<br>Approved</span>
-                </div>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4 md:gap-6 lg:gap-gutter reveal">
-              <div
-                class="p-5 md:p-6 lg:p-stack-md glass-card rounded-2xl text-center flex flex-col items-center justify-center border-b-4 border-primary shadow-2xl"
-              >
-                <div
-                  class="text-3xl md:text-4xl lg:text-[44px] font-black text-primary leading-tight counter"
-                  data-target="5000"
-                  data-suffix="5,000+"
-                >
-                  0
-                </div>
-                <div
-                  class="text-[10px] md:text-xs lg:text-label-md text-on-surface-variant uppercase tracking-widest mt-2"
-                >
-                  Homes Cleaned
-                </div>
-              </div>
-              <div
-                class="p-5 md:p-6 lg:p-stack-md glass-card rounded-2xl text-center flex flex-col items-center justify-center border-b-4 border-on-tertiary-container shadow-2xl"
-              >
-                <div
-                  class="text-3xl md:text-4xl lg:text-[44px] font-black text-primary leading-tight counter"
-                  data-target="15"
-                  data-suffix="15+"
-                >
-                  0
-                </div>
-                <div
-                  class="text-[10px] md:text-xs lg:text-label-md text-on-surface-variant uppercase tracking-widest mt-2"
-                >
-                  Years Experience
-                </div>
-              </div>
-              <div
-                class="col-span-2 p-6 md:p-8 bg-primary-container rounded-2xl flex items-center justify-between overflow-hidden relative group"
-              >
-                <div class="relative z-10">
-                  <div class="text-white text-2xl md:text-3xl font-bold">
-                    100% Satisfaction
-                  </div>
-                  <div class="text-primary-fixed text-base md:text-lg mt-1">
-                    Guaranteed or Money Back
-                  </div>
-                </div>
-                <span
-                  class="material-symbols-outlined text-[80px] md:text-[120px] text-white/10 absolute -right-2 md:-right-4 -bottom-2 md:-bottom-4 group-hover:scale-110 transition-transform duration-700"
-                  >verified_user</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> -->
-      <!-- Process Section (Enhanced) -->
+      <!-- Process Section (Premium Cinematic) -->
       <section
         id="process"
         class="py-12 md:py-16 lg:py-stack-lg bg-surface-container-low"
@@ -2804,116 +3174,115 @@
         <div
           class="max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop"
         >
-          <h2
-            class="text-3xl md:text-4xl lg:text-headline-lg text-primary text-center mb-8 md:mb-12 lg:mb-stack-lg reveal font-bold"
+          <div
+            id="process-card"
+            class="process-premium-card relative overflow-hidden rounded-[2rem] lg:rounded-[3rem] px-6 py-12 md:px-12 md:py-16 lg:px-16 lg:py-20 reveal"
           >
-            Our 4-Step Purity Process
-          </h2>
-          <div class="relative mt-12 md:mt-16 lg:mt-20 reveal">
-            <!-- Horizontal Timeline Line -->
-            <div
-              class="absolute top-[32px] left-0 w-full h-1 bg-outline-variant/30 hidden md:block"
-            ></div>
-            <div
-              class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 lg:gap-gutter relative z-10"
+            <div class="process-film-grain" aria-hidden="true"></div>
+            <div id="process-sheen" class="process-card-sheen" aria-hidden="true"></div>
+
+            <h2
+              class="relative z-10 text-3xl md:text-4xl lg:text-headline-lg text-center mb-3 font-bold text-process-silver"
             >
-              <!-- Step 1 -->
+              Our 4-Step Purity Process
+            </h2>
+            <p
+              class="relative z-10 text-center text-blue-100/60 text-sm md:text-base max-w-xl mx-auto mb-10 md:mb-16"
+            >
+              A precise, technician-led workflow engineered for hospital-grade
+              air quality — every visit, every time.
+            </p>
+
+            <div class="relative z-10 mt-4">
+              <!-- Horizontal Timeline Line -->
               <div
-                class="stagger-item flex flex-col items-center text-center group cursor-pointer"
-              >
-                <div
-                  class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border-4 border-primary text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-xl flex items-center justify-center mb-4 md:mb-6 relative z-20"
-                >
-                  <span
-                    class="material-symbols-outlined text-[26px] md:text-[30px]"
-                    >biotech</span
-                  >
-                </div>
-                <div
-                  class="text-lg md:text-xl lg:text-headline-md text-primary mb-2 font-semibold"
-                >
-                  1. Inspection
-                </div>
-                <p
-                  class="text-on-surface-variant text-sm md:text-base px-2 md:px-4"
-                >
-                  HD Video diagnostics of your system's interior health.
-                </p>
-              </div>
-              <!-- Step 2 -->
+                class="absolute top-[32px] left-0 w-full h-px bg-gradient-to-r from-transparent via-tertiary-fixed/40 to-transparent hidden md:block"
+              ></div>
               <div
-                class="stagger-item flex flex-col items-center text-center group cursor-pointer"
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-6 lg:gap-gutter relative"
               >
+                <!-- Step 1 -->
                 <div
-                  class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border-4 border-primary text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-xl flex items-center justify-center mb-4 md:mb-6 relative z-20"
+                  class="stagger-item flex flex-col items-center text-center group cursor-pointer"
                 >
-                  <span
-                    class="material-symbols-outlined text-[26px] md:text-[30px]"
-                    >vacuum</span
+                  <div class="process-step-badge mb-4 md:mb-6">
+                    <span
+                      class="material-symbols-outlined text-[26px] md:text-[30px]"
+                      >biotech</span
+                    >
+                  </div>
+                  <div
+                    class="text-lg md:text-xl lg:text-headline-md text-white mb-2 font-semibold"
                   >
+                    1. Inspection
+                  </div>
+                  <p class="text-blue-100/60 text-sm md:text-base px-2 md:px-4">
+                    HD Video diagnostics of your system's interior health.
+                  </p>
                 </div>
+                <!-- Step 2 -->
                 <div
-                  class="text-lg md:text-xl lg:text-headline-md text-primary mb-2 font-semibold"
+                  class="stagger-item flex flex-col items-center text-center group cursor-pointer"
                 >
-                  2. Cleaning
-                </div>
-                <p
-                  class="text-on-surface-variant text-sm md:text-base px-2 md:px-4"
-                >
-                  Negative pressure agitation and HEPA-filtered extraction.
-                </p>
-              </div>
-              <!-- Step 3 -->
-              <div
-                class="stagger-item flex flex-col items-center text-center group cursor-pointer"
-              >
-                <div
-                  class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border-4 border-primary text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-xl flex items-center justify-center mb-4 md:mb-6 relative z-20"
-                >
-                  <span
-                    class="material-symbols-outlined text-[26px] md:text-[30px]"
-                    >sanitizer</span
+                  <div class="process-step-badge mb-4 md:mb-6">
+                    <span
+                      class="material-symbols-outlined text-[26px] md:text-[30px]"
+                      >vacuum</span
+                    >
+                  </div>
+                  <div
+                    class="text-lg md:text-xl lg:text-headline-md text-white mb-2 font-semibold"
                   >
+                    2. Cleaning
+                  </div>
+                  <p class="text-blue-100/60 text-sm md:text-base px-2 md:px-4">
+                    Negative pressure agitation and HEPA-filtered extraction.
+                  </p>
                 </div>
+                <!-- Step 3 -->
                 <div
-                  class="text-lg md:text-xl lg:text-headline-md text-primary mb-2 font-semibold"
+                  class="stagger-item flex flex-col items-center text-center group cursor-pointer"
                 >
-                  3. Sanitization
-                </div>
-                <p
-                  class="text-on-surface-variant text-sm md:text-base px-2 md:px-4"
-                >
-                  EPA-approved antimicrobial fogging for lasting purity.
-                </p>
-              </div>
-              <!-- Step 4 -->
-              <div
-                class="stagger-item flex flex-col items-center text-center group cursor-pointer"
-              >
-                <div
-                  class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border-4 border-primary text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-xl flex items-center justify-center mb-4 md:mb-6 relative z-20"
-                >
-                  <span
-                    class="material-symbols-outlined text-[26px] md:text-[30px]"
-                    >task_alt</span
+                  <div class="process-step-badge mb-4 md:mb-6">
+                    <span
+                      class="material-symbols-outlined text-[26px] md:text-[30px]"
+                      >sanitizer</span
+                    >
+                  </div>
+                  <div
+                    class="text-lg md:text-xl lg:text-headline-md text-white mb-2 font-semibold"
                   >
+                    3. Sanitization
+                  </div>
+                  <p class="text-blue-100/60 text-sm md:text-base px-2 md:px-4">
+                    EPA-approved antimicrobial fogging for lasting purity.
+                  </p>
                 </div>
+                <!-- Step 4 -->
                 <div
-                  class="text-lg md:text-xl lg:text-headline-md text-primary mb-2 font-semibold"
+                  class="stagger-item flex flex-col items-center text-center group cursor-pointer"
                 >
-                  4. Final Check
+                  <div class="process-step-badge mb-4 md:mb-6">
+                    <span
+                      class="material-symbols-outlined text-[26px] md:text-[30px]"
+                      >task_alt</span
+                    >
+                  </div>
+                  <div
+                    class="text-lg md:text-xl lg:text-headline-md text-white mb-2 font-semibold"
+                  >
+                    4. Final Check
+                  </div>
+                  <p class="text-blue-100/60 text-sm md:text-base px-2 md:px-4">
+                    System re-certification and post-clean documentation.
+                  </p>
                 </div>
-                <p
-                  class="text-on-surface-variant text-sm md:text-base px-2 md:px-4"
-                >
-                  System re-certification and post-clean documentation.
-                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <!-- Testimonials Carousel -->
+      <!-- Testimonials Coverflow -->
       <section
         id="testimonials"
         class="py-12 md:py-16 lg:py-stack-lg bg-white overflow-hidden"
@@ -2937,190 +3306,97 @@
             <div class="flex gap-3 md:gap-4">
               <button
                 class="carousel-prev w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300"
+                aria-label="Previous testimonial"
               >
                 <span class="material-symbols-outlined">chevron_left</span>
               </button>
               <button
                 class="carousel-next w-10 h-10 md:w-12 md:h-12 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300"
+                aria-label="Next testimonial"
               >
                 <span class="material-symbols-outlined">chevron_right</span>
               </button>
             </div>
           </div>
+
           <div
-            class="testimonial-carousel flex overflow-x-auto gap-4 md:gap-6 lg:gap-8 pb-8 md:pb-12 scrollbar-hide snap-x reveal"
+            id="testimonial-coverflow"
+            class="coverflow reveal"
+            style="--cf-card: clamp(220px, 32vw, 360px)"
           >
-            <!-- Testimonial 1 -->
             <div
-              class="testimonial-3d min-w-[280px] sm:min-w-[320px] md:min-w-[400px] lg:min-w-[450px] bg-surface-container-low p-6 md:p-8 lg:p-10 rounded-2xl md:rounded-3xl snap-center relative border border-outline-variant/30"
+              id="coverflow-frame"
+              class="coverflow-frame"
+              tabindex="0"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="Client testimonials"
             >
-              <div class="text-on-tertiary-container flex gap-1 mb-4 md:mb-6">
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-              </div>
-              <p
-                class="text-base md:text-lg text-primary leading-relaxed mb-6 md:mb-8 font-medium"
-              >
-                "The professional approach and scientific precision were
-                unmatched. My air quality felt noticeably crisper within hours."
-              </p>
-              <div class="flex items-center gap-3 md:gap-4">
+              <div id="coverflow-track" class="coverflow-track">
                 <div
-                  class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-secondary-fixed border-2 border-white shadow-md"
-                ></div>
-                <div>
-                  <div class="font-bold text-primary text-sm md:text-base">
-                    Alexandra Vance
-                  </div>
+                  class="coverflow-card"
+                  data-index="0"
+                  data-quote="The professional approach and scientific precision were unmatched. My air quality felt noticeably crisper within hours."
+                  data-name="Alexandra Vance"
+                  data-role="Interior Designer"
+                  data-initials="AV"
+                >
                   <div
-                    class="text-[10px] md:text-xs text-on-surface-variant uppercase tracking-widest mt-1"
+                    class="coverflow-card-inner bg-gradient-to-br from-secondary-fixed to-secondary-fixed-dim"
                   >
-                    Interior Designer
+                    <span class="material-symbols-outlined coverflow-quote-icon"
+                      >format_quote</span
+                    >
+                    <div class="coverflow-avatar">AV</div>
+                    <div class="coverflow-stars">★★★★★</div>
+                  </div>
+                </div>
+                <div
+                  class="coverflow-card"
+                  data-index="1"
+                  data-quote="I appreciated the detailed video report before and after. Transparent, thorough, and highly technical."
+                  data-name="Marcus Thornton"
+                  data-role="Property Manager"
+                  data-initials="MT"
+                >
+                  <div
+                    class="coverflow-card-inner bg-gradient-to-br from-primary-container to-primary text-white"
+                  >
+                    <span class="material-symbols-outlined coverflow-quote-icon"
+                      >format_quote</span
+                    >
+                    <div class="coverflow-avatar">MT</div>
+                    <div class="coverflow-stars">★★★★★</div>
+                  </div>
+                </div>
+                <div
+                  class="coverflow-card"
+                  data-index="2"
+                  data-quote="As someone with severe allergies, Pacific Duct has been a life-changer. The mold remediation was handled perfectly."
+                  data-name="Julianne Peters"
+                  data-role="Private Resident"
+                  data-initials="JP"
+                >
+                  <div
+                    class="coverflow-card-inner bg-gradient-to-br from-tertiary-fixed to-tertiary-fixed-dim"
+                  >
+                    <span class="material-symbols-outlined coverflow-quote-icon"
+                      >format_quote</span
+                    >
+                    <div class="coverflow-avatar">JP</div>
+                    <div class="coverflow-stars">★★★★★</div>
                   </div>
                 </div>
               </div>
-              <span
-                class="material-symbols-outlined text-[60px] md:text-[80px] text-primary/5 absolute top-6 md:top-10 right-6 md:right-10"
-                >format_quote</span
-              >
             </div>
-            <!-- Testimonial 2 -->
-            <div
-              class="min-w-[280px] sm:min-w-[320px] md:min-w-[400px] lg:min-w-[450px] bg-surface-container-low p-6 md:p-8 lg:p-10 rounded-2xl md:rounded-3xl snap-center relative border border-outline-variant/30"
-            >
-              <div class="text-on-tertiary-container flex gap-1 mb-4 md:mb-6">
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-              </div>
-              <p
-                class="text-base md:text-lg text-primary leading-relaxed mb-6 md:mb-8 font-medium"
-              >
-                "I appreciated the detailed video report before and after.
-                Transparent, thorough, and highly technical."
-              </p>
-              <div class="flex items-center gap-3 md:gap-4">
-                <div
-                  class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary-container border-2 border-white shadow-md"
-                ></div>
-                <div>
-                  <div class="font-bold text-primary text-sm md:text-base">
-                    Marcus Thornton
-                  </div>
-                  <div
-                    class="text-[10px] md:text-xs text-on-surface-variant uppercase tracking-widest mt-1"
-                  >
-                    Property Manager
-                  </div>
-                </div>
-              </div>
-              <span
-                class="material-symbols-outlined text-[60px] md:text-[80px] text-primary/5 absolute top-6 md:top-10 right-6 md:right-10"
-                >format_quote</span
-              >
+
+            <div id="coverflow-caption" class="coverflow-caption">
+              <p id="coverflow-quote-text" class="coverflow-quote-text"></p>
+              <div id="coverflow-person-name" class="coverflow-person-name"></div>
+              <div id="coverflow-person-role" class="coverflow-person-role"></div>
             </div>
-            <!-- Testimonial 3 -->
-            <div
-              class="min-w-[280px] sm:min-w-[320px] md:min-w-[400px] lg:min-w-[450px] bg-surface-container-low p-6 md:p-8 lg:p-10 rounded-2xl md:rounded-3xl snap-center relative border border-outline-variant/30"
-            >
-              <div class="text-on-tertiary-container flex gap-1 mb-4 md:mb-6">
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-                <span
-                  class="material-symbols-outlined text-[18px] md:text-[20px]"
-                  style="font-variation-settings: &quot;FILL&quot; 1"
-                  >star</span
-                >
-              </div>
-              <p
-                class="text-base md:text-lg text-primary leading-relaxed mb-6 md:mb-8 font-medium"
-              >
-                "As someone with severe allergies, Pacific Duct has been a
-                life-changer. The mold remediation was handled perfectly."
-              </p>
-              <div class="flex items-center gap-3 md:gap-4">
-                <div
-                  class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-tertiary-fixed border-2 border-white shadow-md"
-                ></div>
-                <div>
-                  <div class="font-bold text-primary text-sm md:text-base">
-                    Julianne Peters
-                  </div>
-                  <div
-                    class="text-[10px] md:text-xs text-on-surface-variant uppercase tracking-widest mt-1"
-                  >
-                    Private Resident
-                  </div>
-                </div>
-              </div>
-              <span
-                class="material-symbols-outlined text-[60px] md:text-[80px] text-primary/5 absolute top-6 md:top-10 right-6 md:right-10"
-                >format_quote</span
-              >
-            </div>
+
+            <div id="coverflow-dots" class="coverflow-dots"></div>
           </div>
         </div>
       </section>
@@ -3375,52 +3651,58 @@
 
     <!-- Footer -->
     <footer
-      class="bg-surface dark:bg-inverse-surface border-t border-outline-variant w-full pt-12 md:pt-16 lg:pt-stack-lg pb-8 md:pb-12 lg:pb-stack-md"
+      id="site-footer"
+      class="relative overflow-hidden bg-[#050b18] w-full pt-12 md:pt-16 lg:pt-stack-lg pb-8 md:pb-12 lg:pb-stack-md"
     >
       <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-gutter max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-gutter max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop relative z-10"
       >
         <div class="space-y-3 md:space-y-4 lg:space-y-stack-sm">
-          <div
-            class="text-xl md:text-2xl lg:text-headline-md font-bold text-primary"
-          >
-            Pacific Duct
+          <div class="flex items-center gap-2">
+            <img
+              src="pacific_logo_without_bg.png"
+              alt="Pacific Duct Systems"
+              class="h-9 w-auto object-contain"
+            />
+            <span class="text-xl md:text-2xl lg:text-headline-md font-bold text-white">
+              Pacific Duct
+            </span>
           </div>
-          <p class="text-on-surface-variant text-sm md:text-base pr-0 md:pr-8">
+          <p class="text-white/50 text-sm md:text-base pr-0 md:pr-8">
             Redefining indoor air quality through engineering and excellence.
           </p>
         </div>
         <div>
           <h4
-            class="text-xs md:text-sm lg:text-label-md text-primary mb-3 md:mb-4 lg:mb-stack-sm uppercase tracking-widest font-semibold"
+            class="text-xs md:text-sm lg:text-label-md text-tertiary-fixed mb-3 md:mb-4 lg:mb-stack-sm uppercase tracking-widest font-semibold"
           >
             Company
           </h4>
           <ul class="space-y-2">
             <li>
               <a
-                class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base"
+                class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
                 href="#"
                 >About Us</a
               >
             </li>
             <li>
               <a
-                class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base"
+                class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
                 href="#"
                 >Our Experts</a
               >
             </li>
             <li>
               <a
-                class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base"
+                class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
                 href="#"
                 >Service Areas</a
               >
             </li>
             <li>
               <a
-                class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base"
+                class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
                 href="#"
                 >Careers</a
               >
@@ -3429,146 +3711,82 @@
         </div>
         <div>
           <h4
-            class="text-xs md:text-sm lg:text-label-md text-primary mb-3 md:mb-4 lg:mb-stack-sm uppercase tracking-widest font-semibold"
+            class="text-xs md:text-sm lg:text-label-md text-tertiary-fixed mb-3 md:mb-4 lg:mb-stack-sm uppercase tracking-widest font-semibold"
           >
             Support
           </h4>
           <ul class="space-y-2">
             <li>
               <a
-                class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base"
-                href="#"
-                >Contact Info</a
-              >
-            </li>
-            <li>
-              <a
-                class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base"
+                class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
                 href="privacy-policy.html"
                 >Privacy Policy</a
               >
             </li>
             <li>
               <a
-                class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base"
+                class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
                 href="terms-of-service.html"
                 >Terms of Service</a
               >
             </li>
             <li>
               <a
-                class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base"
+                class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
                 href="faq.html"
                 >FAQ</a
               >
             </li>
           </ul>
         </div>
-          <!-- Contact Info -->
-  <div class="space-y-2 mb-4">
-    <!-- Email -->
-    <div class="flex items-center gap-2 text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-      <a href="mailto:pacificduct021@gmail.com">pacificduct021@gmail.com</a>
-    </div>
-
-    <!-- Phone -->
-    <div class="flex items-center gap-2 text-sm md:text-base text-on-surface-variant hover:text-primary transition-colors">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M3 5a2 2 0 012-2h1.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-      </svg>
-      <a href="tel:+923001234567">(469) 898-9044</a>
-    </div>
-  </div>
-
-  <ul class="space-y-2">
-    <li>
-      <a class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base" href="#">
-        Contact Info
-      </a>
-    </li>
-    <li>
-      <a class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base" href="privacy-policy.html">
-        Privacy Policy
-      </a>
-    </li>
-    <li>
-      <a class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base" href="terms-of-service.html">
-        Terms of Service
-      </a>
-    </li>
-    <li>
-      <a class="text-on-surface-variant hover:text-primary transition-colors text-sm md:text-base" href="faq.html">
-        FAQ
-      </a>
-    </li>
-  </ul>
-</div>
-        <!-- <div class="space-y-3 md:space-y-4 lg:space-y-stack-sm">
+        <div>
           <h4
-            class="text-xs md:text-sm lg:text-label-md text-primary mb-3 md:mb-4 lg:mb-stack-sm uppercase tracking-widest font-semibold"
+            class="text-xs md:text-sm lg:text-label-md text-tertiary-fixed mb-3 md:mb-4 lg:mb-stack-sm uppercase tracking-widest font-semibold"
           >
-            Newsletter
+            Contact
           </h4>
-          <div class="flex gap-2">
-            <input
-              class="bg-surface-container border border-outline-variant rounded-lg p-2 md:p-3 flex-grow text-xs md:text-sm"
-              placeholder="Email"
-              type="email"
-            />
-            <button
-              class="bg-primary text-white p-2 md:p-3 rounded-lg hover:bg-primary-container transition-colors"
-            >
-              <span class="material-symbols-outlined text-[20px] md:text-[24px]"
-                >send</span
-              >
-            </button>
-          </div>
-          <div class="flex gap-3 md:gap-4 pt-2 md:pt-4">
+          <div class="space-y-3">
             <a
-              class="text-on-surface-variant hover:text-primary transition-colors"
-              href="#"
+              href="mailto:pacificduct021@gmail.com"
+              class="flex items-center gap-2 text-sm md:text-base text-white/50 hover:text-white transition-colors"
             >
-              <img
-                alt="Facebook"
-                class="w-5 h-5 md:w-6 md:h-6"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBECanJCJP22DKwTgMk5XVRjRkHXGB3Auq1ivC6oe7TGI2LIK9AZmzXBMZF1KtsawariS4nw0bnkg-Rhjxie0PpTefh7R5w9E8nYTvXgBNZfPClUVl1wzEkm3JlZIxQWk-A4SztwqK-UHJIC364JS_ySSDKLVjFcYS6zGJ_xLRBsTHyBCsW3rEKfDE3zUabd0U6Ne6wkk5TVIKnt1SsZFGSwS2Y9XB2sMvstTJMcMDDFbp0kNl0ZASNmer2KijFhYk9NAW2SXI6jmfV"
-              />
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span>pacificduct021@gmail.com</span>
             </a>
             <a
-              class="text-on-surface-variant hover:text-primary transition-colors"
-              href="#"
+              href="tel:+14698989044"
+              class="flex items-center gap-2 text-sm md:text-base text-white/50 hover:text-white transition-colors"
             >
-              <img
-                alt="Instagram"
-                class="w-5 h-5 md:w-6 md:h-6"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQqPqsvoXkWNBGf39B3ob1ySaPx5cBp_sFDIdV6OoBeUKOuabPyCpOUIrPJe5LvOmq8I9znfEEr_S-fq40Im5JqrsMvZCUiHwjJ3baRApKOctjDufBV6gPM0ssQCYrsOZLrqGNdB8ZyTu6-iDOBDU34Yz9FvI0jq_lvhw0gRO7_8dZPvABvxLUC854MIi4s0WBjniiZXlEDlSc5GgtgGQSyDXBw1dnMQVSkepifJzWI2i0c1hTYAwpuXfCAtHlrhGRKNMNBQJ4jWjS"
-              />
-            </a>
-            <a
-              class="text-on-surface-variant hover:text-primary transition-colors"
-              href="#"
-            >
-              <img
-                alt="LinkedIn"
-                class="w-5 h-5 md:w-6 md:h-6"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqJs93S0ZXxIg8bXKAehJI0o_i-9eoDFg54GaWQdSC69hpwMdDhDGMfeYAoq8I8OSr1sS_ayemVB4sT2dIlckRPP_yalQlz5xQWE3bqAClu0--IMXC3nFx8PxOmevGaFI5jmBUhpaUveO6QuWBqlGIR946JUHmHJyb3Z6JCSmo-hxW4kye-gflHJkD9pnAVTdrk7TtynU_QZnGP8RAKzNSN-ZVl2JQSqfrzH2bp1zAW7ziMc356lF6iaKHNsMJNn8k6bWHhvGUCtuk"
-              />
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 5a2 2 0 012-2h1.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <span>(469) 898-9044</span>
             </a>
           </div>
-        </div> -->
+        </div>
       </div>
+
       <div
-        class="max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop mt-8 md:mt-12 lg:mt-stack-lg pt-6 md:pt-8 lg:pt-stack-sm border-t border-outline-variant"
+        class="max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop mt-10 md:mt-14 lg:mt-stack-lg pt-6 md:pt-8 lg:pt-stack-sm border-t border-white/10 relative z-10 flex flex-col sm:flex-row items-center justify-between gap-4"
       >
-        <p class="text-on-surface-variant text-xs md:text-sm text-center">
+        <p class="text-white/40 text-xs md:text-sm">
           © 2024 Pacific Duct Systems. All rights reserved.
         </p>
+        <div class="flex items-center gap-2 text-white/40 text-xs md:text-sm">
+          <span class="w-2 h-2 rounded-full bg-tertiary-fixed shadow-[0_0_8px_#7df4ff] animate-pulse"></span>
+          Now Accepting Bookings
+        </div>
+        <p class="text-white/40 text-xs md:text-sm">
+          Serving Your Area · Remote Estimates Available
+        </p>
       </div>
+
+      <!-- Scroll-reactive aurora glow -->
+      <div id="footer-aurora" class="footer-aurora-glow" aria-hidden="true"></div>
     </footer>
   </body>
 </html>
