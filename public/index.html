@@ -2055,7 +2055,7 @@
             {
               icon: "fireplace",
               label: "Chimney Cleaning",
-              desc: "Complete chimney cleaning and maintenance to ensure safe airflow, improved efficiency, and a clean, smoke-free environment in your home.",
+              desc: "Complete chimney cleaning and maintenance for safe airflow and a clean, smoke-free home.",
               price: "$199",
               priceLabel: "Starting from",
               cta: "Book Now",
@@ -2064,7 +2064,7 @@
             {
               icon: "contact_support",
               label: "Air Duct System Installation",
-              desc: "Need a specialized service? We provide professional Air Duct System Installation tailored to your space, ensuring proper airflow, improved ventilation, and maximum energy efficiency for your home or business.",
+              desc: "Professional air duct system installation tailored to your space, engineered for proper airflow, improved ventilation, and maximum energy efficiency.",
               price: "Custom",
               priceLabel: "Quote",
               cta: "Contact Us",
@@ -2073,7 +2073,7 @@
             {
               icon: "contact_support",
               label: "AC System Installation",
-              desc: "AC System Installation provides professional setup of air conditioning systems to ensure efficient cooling, proper airflow, and long-lasting performance for your home or business.",
+              desc: "Professional setup of air conditioning systems for efficient cooling, proper airflow, and long-lasting performance.",
               price: "Custom",
               priceLabel: "Quote",
               cta: "Contact Us",
@@ -2082,7 +2082,7 @@
             {
               icon: "contact_support",
               label: "Custom Solutions",
-              desc: "Need a specialized service? We offer custom solutions tailored to your specific needs. Our team provides reliable and efficient services designed to meet your exact requirements.",
+              desc: "Have a unique requirement? Our team designs custom air quality solutions built around your exact space and needs.",
               price: "Custom",
               priceLabel: "Quote",
               cta: "Contact Us",
@@ -2091,7 +2091,7 @@
           ];
 
           const count = SERVICES.length;
-          const ITEM_HEIGHT = window.innerWidth <= 768 ? 50 : 58;
+          const ITEM_HEIGHT = window.innerWidth <= 768 ? 44 : 58;
           const AUTOPLAY_MS = 3000;
 
           let step = 0;
@@ -2585,7 +2585,7 @@
               btnIcon.textContent = "arrow_forward";
 
               formMessage.textContent =
-                "✗ Oops! Something went wrong. Please make sure the server is running or try again later.";
+                "We couldn't submit your request. Please try again, or call us directly at (469) 898-9044.";
               formMessage.className =
                 "block p-4 rounded-xl text-sm md:text-base bg-error-container text-on-error-container";
 
@@ -2693,7 +2693,7 @@
               e.preventDefault();
               const target = document.querySelector(href);
               if (target) {
-                const headerOffset = 80;
+                const headerOffset = window.innerWidth >= 768 ? 112 : 80;
                 const elementPosition = target.getBoundingClientRect().top;
                 const offsetPosition =
                   elementPosition + window.pageYOffset - headerOffset;
@@ -2730,16 +2730,16 @@
       class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-[20px] border-b border-white/20"
     >
       <div
-        class="flex justify-between items-center max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop h-16 md:h-20"
+        class="flex justify-between items-center max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop h-20 md:h-28"
       >
-        <div class="flex items-center gap-2 md:gap-3">
+        <div class="flex items-center gap-1.5 md:gap-3 min-w-0">
           <img
             src="pacific_logo_without_bg.png"
             alt="Pacific Duct Systems logo"
-            class="h-14 md:h-16 w-auto object-contain"
+            class="h-12 md:h-24 w-auto object-contain shrink-0"
           />
           <span
-            class="font-headline-md text-lg md:text-headline-md font-bold tracking-tight text-primary"
+            class="font-headline-md text-base md:text-headline-md font-bold tracking-tight text-primary whitespace-nowrap"
           >
             Pacific Duct
           </span>
@@ -2845,7 +2845,7 @@
     <main>
       <!-- Hero Section -->
       <section
-        class="relative min-h-screen flex items-center pt-16 md:pt-20 overflow-hidden bg-primary"
+        class="relative min-h-screen flex items-center pt-20 md:pt-28 overflow-hidden bg-primary"
       >
         <!-- Background -->
         <div class="absolute inset-0 z-0">
@@ -2887,14 +2887,14 @@
             <h1
               class="text-4xl md:text-5xl lg:text-display-lg text-white tracking-tight leading-tight font-bold"
             >
-              Elite Air <br />
+              Precision Air <br />
               <span class="text-tertiary-fixed">Purification</span>
             </h1>
             <p
               class="text-base md:text-lg lg:text-body-lg text-white/80 max-w-[500px]"
             >
-              Experience the ultimate indoor air standard. Hospital-grade duct
-              sanitization for sophisticated living spaces.
+              Hospital-grade duct sanitization engineered for homes and
+              businesses that expect measurably cleaner air.
             </p>
             <div
               class="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 pt-4"
@@ -2903,7 +2903,7 @@
                 class="ripple neon-pulse-blue primary-gradient-btn text-white px-6 md:px-10 py-3 md:py-4 rounded-lg font-label-md shadow-xl hover:shadow-2xl transition-all hover:scale-[1.05] text-sm md:text-base"
                 onclick="window.location.href = '#book'"
               >
-                Secure Appointment
+                Book Your Service
               </button>
               <button
                 class="ripple bg-white/10 backdrop-blur-md text-white px-6 md:px-10 py-3 md:py-4 rounded-lg font-label-md border border-white/30 hover:bg-white/20 transition-all text-sm md:text-base"
@@ -2920,8 +2920,8 @@
               class="relative rounded-2xl overflow-hidden shadow-[0_20px_40px_-12px_rgba(0,30,64,0.3)] border-4 border-white"
             >
               <img
-                alt="Premium HVAC Service"
-                class="w-full h-auto"
+                alt="Technician cleaning an air duct vent"
+                class="w-full aspect-[2/3] object-cover object-[0%_65%]"
                 src="screen.png"
               />
             </div>
@@ -2936,8 +2936,8 @@
               class="relative rounded-2xl overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,30,64,0.3)] border-8 border-white group-hover:scale-[1.02] transition-transform duration-700"
             >
               <img
-                alt="Premium HVAC Service"
-                class="w-full h-auto"
+                alt="Technician cleaning an air duct vent"
+                class="w-full aspect-[2/3] object-cover object-[0%_65%]"
                 src="screen.png"
               />
             </div>
@@ -2986,7 +2986,8 @@
             <p
               class="text-sm md:text-base text-on-surface-variant max-w-2xl mx-auto"
             >
-              Comprehensive air quality solutions for your home and business.
+              Precision-engineered cleaning services, backed by certified
+              technicians and transparent pricing.
             </p>
           </div>
           <div
@@ -2995,7 +2996,7 @@
           >
             <!-- Chip stepper -->
             <div
-              class="w-full lg:w-[38%] min-h-[280px] md:min-h-[340px] lg:h-auto relative z-30 flex flex-col items-start justify-center overflow-hidden px-6 md:px-12 lg:pl-14 bg-primary"
+              class="w-full lg:w-[38%] min-h-[420px] md:min-h-[480px] lg:h-auto relative z-30 flex flex-col items-start justify-center overflow-hidden px-6 md:px-12 lg:pl-14 bg-primary"
             >
               <div
                 class="absolute inset-x-0 top-0 h-12 md:h-16 bg-gradient-to-b from-primary via-primary/80 to-transparent z-40 pointer-events-none"
@@ -3005,7 +3006,7 @@
               ></div>
               <div
                 id="fc-chip-stack"
-                class="relative w-full h-[280px] md:h-[340px] flex items-center justify-start z-20"
+                class="relative w-full h-[420px] md:h-[480px] flex items-center justify-start z-20"
               ></div>
             </div>
 
@@ -3052,7 +3053,7 @@
                     <div
                       class="text-lg md:text-xl lg:text-headline-md text-primary font-semibold"
                     >
-                      NADCA Platinum Member
+                      NADCA Certified Member
                     </div>
                     <p
                       class="text-on-surface-variant mt-1 text-sm md:text-base"
@@ -3151,10 +3152,10 @@
               >
                 <div class="relative z-10">
                   <div class="text-white text-2xl md:text-3xl font-bold">
-                    100% Assurance
+                    100% Satisfaction
                   </div>
                   <div class="text-primary-fixed text-base md:text-lg mt-1">
-                    Guaranteed Satisfaction
+                    Backed by our service guarantee
                   </div>
                 </div>
                 <span
@@ -3300,7 +3301,7 @@
                 Client Experiences
               </h2>
               <p class="text-sm md:text-base text-on-surface-variant mt-2">
-                Hear from those who breathe the Pacific Duct difference.
+                Real feedback from homeowners and businesses we've served.
               </p>
             </div>
             <div class="flex gap-3 md:gap-4">
@@ -3422,18 +3423,18 @@
               <div
                 class="inline-block px-3 md:px-4 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs md:text-sm text-tertiary-fixed mb-4 md:mb-6 border border-white/20"
               >
-                Now Accepting Reservations
+                Now Accepting Bookings
               </div>
               <h2
                 class="text-3xl md:text-4xl lg:text-headline-lg mb-4 md:mb-6 leading-tight font-bold"
               >
-                Begin Your Path to Purity
+                Schedule Your Air Quality Service
               </h2>
               <p
                 class="text-primary-fixed/80 text-base md:text-lg mb-6 md:mb-10 leading-relaxed"
               >
-                Schedule a specialized inspection or book a full purification
-                service today. Experience the premium standard.
+                Book a specialized inspection or a full duct cleaning service —
+                transparent pricing, certified technicians, no surprises.
               </p>
               <div class="space-y-4 md:space-y-6">
                 <div class="flex items-center gap-3 md:gap-4">
@@ -3442,7 +3443,7 @@
                     >calendar_today</span
                   >
                   <span class="font-medium text-sm md:text-base"
-                    >Direct Priority Booking</span
+                    >Fast, Priority Scheduling</span
                   >
                 </div>
                 <div class="flex items-center gap-3 md:gap-4">
@@ -3451,7 +3452,7 @@
                     >verified_user</span
                   >
                   <span class="font-medium text-sm md:text-base"
-                    >Encrypted Data Protection</span
+                    >Secure, Encrypted Checkout</span
                   >
                 </div>
               </div>
@@ -3532,8 +3533,8 @@
                         <option value="Furnace Cleaning">
                           Furnace Cleaning
                         </option>
-                        <option value="chimney cleaning">
-                          chimney cleaning
+                        <option value="Chimney Cleaning">
+                          Chimney Cleaning
                         </option>
                         <option value="Air Duct System Installation">
                           Air Duct System Installation
@@ -3655,23 +3656,8 @@
       class="relative overflow-hidden bg-[#050b18] w-full pt-12 md:pt-16 lg:pt-stack-lg pb-8 md:pb-12 lg:pb-stack-md"
     >
       <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-gutter max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop relative z-10"
+        class="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-10 lg:gap-gutter max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop relative z-10"
       >
-        <div class="space-y-3 md:space-y-4 lg:space-y-stack-sm">
-          <div class="flex items-center gap-2">
-            <img
-              src="pacific_logo_without_bg.png"
-              alt="Pacific Duct Systems"
-              class="h-9 w-auto object-contain"
-            />
-            <span class="text-xl md:text-2xl lg:text-headline-md font-bold text-white">
-              Pacific Duct
-            </span>
-          </div>
-          <p class="text-white/50 text-sm md:text-base pr-0 md:pr-8">
-            Redefining indoor air quality through engineering and excellence.
-          </p>
-        </div>
         <div>
           <h4
             class="text-xs md:text-sm lg:text-label-md text-tertiary-fixed mb-3 md:mb-4 lg:mb-stack-sm uppercase tracking-widest font-semibold"
@@ -3682,29 +3668,15 @@
             <li>
               <a
                 class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
-                href="#"
+                href="#why-us"
                 >About Us</a
               >
             </li>
             <li>
               <a
                 class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
-                href="#"
-                >Our Experts</a
-              >
-            </li>
-            <li>
-              <a
-                class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
-                href="#"
-                >Service Areas</a
-              >
-            </li>
-            <li>
-              <a
-                class="text-white/50 hover:text-white transition-colors text-sm md:text-base"
-                href="#"
-                >Careers</a
+                href="#process"
+                >Our Process</a
               >
             </li>
           </ul>
@@ -3774,14 +3746,14 @@
         class="max-w-container-max mx-auto px-4 md:px-8 lg:px-margin-desktop mt-10 md:mt-14 lg:mt-stack-lg pt-6 md:pt-8 lg:pt-stack-sm border-t border-white/10 relative z-10 flex flex-col sm:flex-row items-center justify-between gap-4"
       >
         <p class="text-white/40 text-xs md:text-sm">
-          © 2024 Pacific Duct Systems. All rights reserved.
+          © 2026 Pacific Duct Systems. All rights reserved.
         </p>
         <div class="flex items-center gap-2 text-white/40 text-xs md:text-sm">
           <span class="w-2 h-2 rounded-full bg-tertiary-fixed shadow-[0_0_8px_#7df4ff] animate-pulse"></span>
           Now Accepting Bookings
         </div>
         <p class="text-white/40 text-xs md:text-sm">
-          Serving Your Area · Remote Estimates Available
+          Remote &amp; On-Site Estimates Available
         </p>
       </div>
 
