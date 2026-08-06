@@ -3,5 +3,8 @@
     "allow": [
       "Bash(python *)"
     ]
+  },
+  "enabledPlugins": {
+    "playwright-skill@playwright-skill": true
   }
 }
