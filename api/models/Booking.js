@@ -7,15 +7,11 @@ const bookingSchema = new mongoose.Schema({
     trim: true
   },
   service: {
+    // No fixed enum — the service list is managed dynamically via the CMS
+    // (admin can add/rename/remove services), so it must accept any title.
     type: String,
     required: true,
-    enum: [
-      'Air Duct Cleaning',
-      'Dryer Vent Cleaning',
-      'Air Vent Cleaning',
-      'Deep Air Vent Cleaning',
-      'Furnace Cleaning'
-    ]
+    trim: true
   },
   email: {
     type: String,
