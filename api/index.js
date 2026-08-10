@@ -3,22 +3,55 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 require('dotenv').config({ path: require('path').resolve(__dirname, '.env') });
 
 const Booking = require('./models/Booking');
+const Admin = require('./models/Admin');
+const Content = require('./models/Content');
+const { requireAdmin, JWT_SECRET } = require('./middleware/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const allowedOrigins = [process.env.FRONTEND_URL].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (curl, server-to-server) and local dev (file://, localhost)
+    if (!origin || origin === 'null' || /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+      return callback(null, true);
+    }
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    callback(new Error('Not allowed by CORS'));
+  },
   methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type']
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(express.static('public')); // Frontend is deployed separately
+
+// Default admin login (hardcoded as requested)
+const DEFAULT_ADMIN_USERNAME = 'admin@pacific.duct';
+const DEFAULT_ADMIN_PASSWORD = '12345678';
+
+async function ensureDefaultAdmin() {
+  try {
+    const existing = await Admin.findOne({ username: DEFAULT_ADMIN_USERNAME });
+    if (!existing) {
+      const passwordHash = await bcrypt.hash(DEFAULT_ADMIN_PASSWORD, 10);
+      await Admin.create({ username: DEFAULT_ADMIN_USERNAME, passwordHash });
+      console.log(`✅ Default admin created: ${DEFAULT_ADMIN_USERNAME}`);
+    }
+  } catch (err) {
+    console.error('❌ Failed to ensure default admin:', err.message);
+  }
+}
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -26,6 +59,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
 .then(() => {
   console.log('✅ MongoDB Connected Successfully!');
+  ensureDefaultAdmin();
 })
 .catch((err) => {
   console.error('❌ MongoDB Connection Error:', err.message);
@@ -45,8 +79,87 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'Backend is working!', mongodb: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected' });
 });
 
+// Admin login
+app.post('/api/admin/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ success: false, message: 'Username and password are required' });
+    }
+
+    const admin = await Admin.findOne({ username: username.toLowerCase() });
+    if (!admin) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+
+    const valid = await bcrypt.compare(password, admin.passwordHash);
+    if (!valid) {
+      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ sub: admin._id, username: admin.username }, JWT_SECRET, {
+      expiresIn: '12h'
+    });
+
+    res.json({ success: true, token, username: admin.username });
+  } catch (error) {
+    console.error('Error logging in:', error);
+    res.status(500).json({ success: false, message: 'Login failed' });
+  }
+});
+
+// Verify current token / session
+app.get('/api/admin/me', requireAdmin, (req, res) => {
+  res.json({ success: true, username: req.admin.username });
+});
+
+// ---- CMS: site content (public read, admin write) ----
+
+async function getOrCreateContent() {
+  let content = await Content.findOne({ key: 'site' });
+  if (!content) {
+    content = await Content.create({ key: 'site' });
+  }
+  return content;
+}
+
+// Public: website reads content here
+app.get('/api/content', async (req, res) => {
+  try {
+    const content = await getOrCreateContent();
+    res.json({ success: true, content });
+  } catch (error) {
+    console.error('Error fetching content:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch content' });
+  }
+});
+
+// Admin: update content (full or partial sections)
+app.put('/api/content', requireAdmin, async (req, res) => {
+  try {
+    const allowedFields = ['hero', 'contact', 'services', 'testimonials', 'pricing'];
+    const updates = {};
+    for (const field of allowedFields) {
+      if (req.body[field] !== undefined) {
+        updates[field] = req.body[field];
+      }
+    }
+
+    const content = await Content.findOneAndUpdate(
+      { key: 'site' },
+      { $set: updates },
+      { new: true, upsert: true }
+    );
+
+    res.json({ success: true, content });
+  } catch (error) {
+    console.error('Error updating content:', error);
+    res.status(500).json({ success: false, message: 'Failed to update content' });
+  }
+});
+
 // Get all bookings (Admin endpoint)
-app.get('/api/bookings', async (req, res) => {
+app.get('/api/bookings', requireAdmin, async (req, res) => {
   try {
     const bookings = await Booking.find().sort({ submittedAt: -1 }).limit(50);
     res.json({
@@ -64,7 +177,7 @@ app.get('/api/bookings', async (req, res) => {
 });
 
 // Get booking by ID
-app.get('/api/bookings/:id', async (req, res) => {
+app.get('/api/bookings/:id', requireAdmin, async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id);
     if (!booking) {
@@ -253,11 +366,15 @@ app.post('/api/submit-booking', async (req, res) => {
       `
     };
 
-    // Send emails
-    await transporter.sendMail(adminMailOptions);
-    await transporter.sendMail(customerMailOptions);
-
-    console.log('✅ Emails sent successfully');
+    // Send emails (best-effort — a booking is still valid even if email delivery fails,
+    // e.g. EMAIL_USER/EMAIL_PASS not configured yet)
+    try {
+      await transporter.sendMail(adminMailOptions);
+      await transporter.sendMail(customerMailOptions);
+      console.log('✅ Emails sent successfully');
+    } catch (emailError) {
+      console.error('⚠️ Booking saved but email failed to send:', emailError.message);
+    }
 
     // Success response
     res.json({
@@ -276,7 +393,7 @@ app.post('/api/submit-booking', async (req, res) => {
 });
 
 // Update booking status (Admin endpoint)
-app.patch('/api/bookings/:id/status', async (req, res) => {
+app.patch('/api/bookings/:id/status', requireAdmin, async (req, res) => {
   try {
     const { status } = req.body;
 

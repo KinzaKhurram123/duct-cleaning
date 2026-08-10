@@ -2037,12 +2037,12 @@
         })();
 
         // Feature carousel (services)
-        (function initFeatureCarousel() {
+        (async function initFeatureCarousel() {
           const chipStack = document.getElementById("fc-chip-stack");
           const cardStack = document.getElementById("fc-card-stack");
           if (!chipStack || !cardStack) return;
 
-          const SERVICES = [
+          const DEFAULT_SERVICES = [
             {
               icon: "air",
               label: "Air Duct Cleaning",
@@ -2125,6 +2125,40 @@
               gradient: "linear-gradient(135deg, #002326, #003366)",
             },
           ];
+
+          const GRADIENT_PALETTE = [
+            "linear-gradient(135deg, #003366, #001e40)",
+            "linear-gradient(135deg, #1facb6, #002326)",
+            "linear-gradient(135deg, #3a5f94, #001e40)",
+            "linear-gradient(135deg, #002326, #001e40)",
+            "linear-gradient(135deg, #004f54, #001e40)",
+            "linear-gradient(135deg, #003366, #002326)",
+            "linear-gradient(135deg, #1f477b, #001e40)",
+            "linear-gradient(135deg, #003366, #1facb6)",
+          ];
+
+          let SERVICES = DEFAULT_SERVICES;
+          try {
+            const cmsApiBase =
+              location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1"
+                ? "http://localhost:4000/api"
+                : "/api";
+            const res = await fetch(`${cmsApiBase}/content`);
+            const data = await res.json();
+            if (data.success && Array.isArray(data.content.services) && data.content.services.length) {
+              SERVICES = data.content.services.map((s, i) => ({
+                icon: s.icon || "design_services",
+                label: s.title,
+                desc: s.description || "",
+                price: s.price || "Custom",
+                priceLabel: s.priceLabel || "Starting from",
+                cta: s.cta || "Book Now",
+                gradient: s.gradient || GRADIENT_PALETTE[i % GRADIENT_PALETTE.length],
+              }));
+            }
+          } catch (err) {
+            console.warn("CMS services unavailable, using defaults:", err);
+          }
 
           const count = SERVICES.length;
           const ITEM_HEIGHT = window.innerWidth <= 768 ? 44 : 58;
@@ -2285,12 +2319,49 @@
         })();
 
         // Coverflow testimonial carousel
-        (function initCoverflow() {
+        (async function initCoverflow() {
           const root = document.getElementById("testimonial-coverflow");
           if (!root) return;
 
-          const frame = document.getElementById("coverflow-frame");
           const track = document.getElementById("coverflow-track");
+          const TESTIMONIAL_GRADIENTS = [
+            "bg-gradient-to-br from-secondary-fixed to-secondary-fixed-dim",
+            "bg-gradient-to-br from-primary-container to-primary text-white",
+            "bg-gradient-to-br from-tertiary-fixed to-tertiary-fixed-dim",
+          ];
+
+          try {
+            const cmsApiBase =
+              location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1"
+                ? "http://localhost:4000/api"
+                : "/api";
+            const res = await fetch(`${cmsApiBase}/content`);
+            const data = await res.json();
+            if (data.success && Array.isArray(data.content.testimonials) && data.content.testimonials.length && track) {
+              track.innerHTML = data.content.testimonials
+                .map((t, i) => {
+                  const initials = (t.name || "")
+                    .split(" ")
+                    .map((w) => w[0])
+                    .join("")
+                    .slice(0, 2)
+                    .toUpperCase();
+                  const gradient = TESTIMONIAL_GRADIENTS[i % TESTIMONIAL_GRADIENTS.length];
+                  return `<div class="coverflow-card" data-index="${i}" data-quote="${(t.quote || "").replace(/"/g, "&quot;")}" data-name="${(t.name || "").replace(/"/g, "&quot;")}" data-role="${(t.role || "").replace(/"/g, "&quot;")}" data-initials="${initials}">
+                    <div class="coverflow-card-inner ${gradient}">
+                      <span class="material-symbols-outlined coverflow-quote-icon">format_quote</span>
+                      <div class="coverflow-avatar">${initials}</div>
+                      <div class="coverflow-stars">★★★★★</div>
+                    </div>
+                  </div>`;
+                })
+                .join("");
+            }
+          } catch (err) {
+            console.warn("CMS testimonials unavailable, using defaults:", err);
+          }
+
+          const frame = document.getElementById("coverflow-frame");
           const cards = Array.from(track.querySelectorAll(".coverflow-card"));
           const quoteText = document.getElementById("coverflow-quote-text");
           const personName = document.getElementById("coverflow-person-name");
@@ -2579,8 +2650,12 @@
               };
 
               // Submit to Node.js backend
+              const bookingApiBase =
+                location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1"
+                  ? "http://localhost:4000/api"
+                  : "/api";
               const response = await fetch(
-                "http://localhost:3000/api/submit-booking",
+                `${bookingApiBase}/submit-booking`,
                 {
                   method: "POST",
                   headers: {
@@ -2917,12 +2992,14 @@
               >
             </div>
             <h1
+              id="cms-hero-title"
               class="text-4xl md:text-5xl lg:text-display-lg text-white tracking-tight leading-tight font-bold"
             >
               Precision Air <br />
               <span class="text-tertiary-fixed">Purification</span>
             </h1>
             <p
+              id="cms-hero-subtitle"
               class="text-base md:text-lg lg:text-body-lg text-white/80 max-w-[500px]"
             >
               Hospital-grade duct sanitization engineered for homes and
@@ -3751,6 +3828,7 @@
           </h4>
           <div class="space-y-3">
             <a
+              id="cms-contact-email"
               href="mailto:pacificduct021@gmail.com"
               class="flex items-center gap-2 text-sm md:text-base text-white/50 hover:text-white transition-colors"
             >
@@ -3758,9 +3836,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <span>pacificduct021@gmail.com</span>
+              <span data-cms-text>pacificduct021@gmail.com</span>
             </a>
             <a
+              id="cms-contact-phone"
               href="tel:+14698989044"
               class="flex items-center gap-2 text-sm md:text-base text-white/50 hover:text-white transition-colors"
             >
@@ -3768,7 +3847,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 5a2 2 0 012-2h1.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <span>(469) 898-9044</span>
+              <span data-cms-text>(469) 898-9044</span>
             </a>
           </div>
         </div>
@@ -3792,5 +3871,46 @@
       <!-- Scroll-reactive aurora glow -->
       <div id="footer-aurora" class="footer-aurora-glow" aria-hidden="true"></div>
     </footer>
+    <script>
+      (function () {
+        const CMS_API_URL =
+          location.protocol === "file:" || location.hostname === "localhost" || location.hostname === "127.0.0.1"
+            ? "http://localhost:4000/api"
+            : "/api";
+
+        fetch(`${CMS_API_URL}/content`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success) return;
+            const content = data.content;
+
+            if (content.hero?.title) {
+              const el = document.getElementById("cms-hero-title");
+              if (el) el.textContent = content.hero.title;
+            }
+            if (content.hero?.subtitle) {
+              const el = document.getElementById("cms-hero-subtitle");
+              if (el) el.textContent = content.hero.subtitle;
+            }
+            if (content.contact?.email) {
+              const el = document.getElementById("cms-contact-email");
+              if (el) {
+                el.href = `mailto:${content.contact.email}`;
+                const span = el.querySelector("[data-cms-text]");
+                if (span) span.textContent = content.contact.email;
+              }
+            }
+            if (content.contact?.phone) {
+              const el = document.getElementById("cms-contact-phone");
+              if (el) {
+                el.href = `tel:${content.contact.phone.replace(/[^\d+]/g, "")}`;
+                const span = el.querySelector("[data-cms-text]");
+                if (span) span.textContent = content.contact.phone;
+              }
+            }
+          })
+          .catch((err) => console.warn("CMS content unavailable, using defaults:", err));
+      })();
+    </script>
   </body>
 </html>
