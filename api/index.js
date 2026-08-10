@@ -162,6 +162,23 @@ app.put('/api/content', requireAdmin, async (req, res) => {
   }
 });
 
+// Public: limited booking info for confirmation/invoice/completion pages
+// (no auth — the booking's MongoDB _id itself acts as the access token,
+// same pattern as e-commerce order-confirmation links)
+app.get('/api/bookings/:id/public', async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id).select(
+      'name service address city state zipCode status submittedAt'
+    );
+    if (!booking) {
+      return res.status(404).json({ success: false, message: 'Booking not found' });
+    }
+    res.json({ success: true, booking });
+  } catch (error) {
+    res.status(404).json({ success: false, message: 'Booking not found' });
+  }
+});
+
 // Get all bookings (Admin endpoint)
 app.get('/api/bookings', requireAdmin, async (req, res) => {
   try {

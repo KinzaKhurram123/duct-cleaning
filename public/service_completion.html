@@ -309,7 +309,7 @@
 
         if (bookingId) {
             try {
-                const response = await fetch(`/api/bookings/${bookingId}`);
+                const response = await fetch(`/api/bookings/${bookingId}/public`);
                 const data = await response.json();
 
                 if (data.success) {

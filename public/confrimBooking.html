@@ -526,7 +526,7 @@
 
         if (bookingId) {
           try {
-            const response = await fetch(`/api/bookings/${bookingId}`);
+            const response = await fetch(`/api/bookings/${bookingId}/public`);
             const data = await response.json();
 
             if (data.success) {
@@ -566,17 +566,19 @@
               document.getElementById("completion-link").href =
                 `service_completion.html?id=${booking._id}`;
 
-              // QR Code
+              // QR code section is currently commented out in the markup above
               const qrCodeContainer = document.getElementById("qrcode");
-              qrCodeContainer.innerHTML = ""; // Clear placeholder
-              new QRCode(qrCodeContainer, {
-                text: window.location.href,
-                width: 96,
-                height: 96,
-                colorDark: "#001e40",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H,
-              });
+              if (qrCodeContainer) {
+                qrCodeContainer.innerHTML = "";
+                new QRCode(qrCodeContainer, {
+                  text: window.location.href,
+                  width: 96,
+                  height: 96,
+                  colorDark: "#001e40",
+                  colorLight: "#ffffff",
+                  correctLevel: QRCode.CorrectLevel.H,
+                });
+              }
             } else {
               console.error("Failed to fetch booking details:", data.message);
             }
