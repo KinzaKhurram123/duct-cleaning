@@ -2671,20 +2671,25 @@
                 // Success state
                 submitBtn.classList.remove("opacity-75");
                 submitBtn.classList.add("success-pulse");
-                btnText.textContent = "Booking Confirmed!";
+                btnText.textContent = "Booking Successful!";
                 btnIcon.textContent = "check_circle";
                 submitBtn.style.background =
                   "linear-gradient(180deg, #1facb6 0%, #002326 100%)";
 
                 formMessage.textContent =
-                  "✓ Thank you! Your booking request has been received. We'll contact you shortly via email.";
+                  "✓ Booking successful! We'll email you the confirmed visit date and further details shortly.";
                 formMessage.className =
                   "block p-4 rounded-xl text-sm md:text-base bg-tertiary-fixed text-on-tertiary-fixed";
 
-                // Redirect to confirmation page
+                // Reset the form after a moment so the user can see the success state
                 setTimeout(() => {
-                  window.location.href = `confrimBooking.html?id=${data.bookingId}`;
-                }, 1000);
+                  bookingForm.reset();
+                  submitBtn.disabled = false;
+                  submitBtn.classList.remove("success-pulse");
+                  submitBtn.style.background = "";
+                  btnText.textContent = "Book My Service";
+                  btnIcon.textContent = "arrow_forward";
+                }, 4000);
               } else {
                 throw new Error(data.message || "Submission failed");
               }

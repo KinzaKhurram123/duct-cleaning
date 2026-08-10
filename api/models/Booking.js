@@ -54,6 +54,12 @@ const bookingSchema = new mongoose.Schema({
     enum: ['pending', 'confirmed', 'completed', 'cancelled'],
     default: 'pending'
   },
+  scheduledDate: {
+    // Set by admin when scheduling the visit; triggers the customer
+    // confirmation email once set.
+    type: Date,
+    default: null
+  },
   submittedAt: {
     type: Date,
     default: Date.now

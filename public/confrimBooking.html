@@ -176,12 +176,13 @@
             class="flex items-center gap-2 bg-on-tertiary-container/10 px-3 py-1.5 rounded-full"
           >
             <span
+              id="status-icon"
               class="material-symbols-outlined text-on-tertiary-container text-[18px]"
               style="font-variation-settings: &quot;FILL&quot; 1"
               >check_circle</span
             >
-            <span class="font-label-md text-label-md text-on-tertiary-container"
-              >Booking Confirmed Successfully</span
+            <span id="status-label" class="font-label-md text-label-md text-on-tertiary-container"
+              >Booking Received</span
             >
           </div>
         </div>
@@ -245,53 +246,31 @@
         >
           Appointment Details
         </h2>
-        <div class="grid grid-cols-3 gap-gutter items-center">
+        <div class="grid grid-cols-2 gap-gutter items-center">
           <div class="flex flex-col gap-1">
             <p class="font-label-md text-label-md text-on-surface-variant">
-              Date & Time
+              Visit Date
             </p>
             <p
               id="booking-date"
               class="font-body-md text-body-md font-semibold text-on-surface"
             >
-              Oct 24, 2024
-            </p>
-            <p class="font-body-md text-body-md text-on-surface-variant">
-              09:00 AM — 12:30 PM
+              To be confirmed
             </p>
           </div>
-          <div
-            class="flex items-center gap-3 border-x border-outline-variant/30 px-gutter"
-          >
-            <img
-              alt="Marcus Thorne"
-              class="w-12 h-12 rounded-full object-cover border-2 border-secondary-container"
-              data-alt="A professional headshot of a friendly male service technician in a clean navy blue corporate uniform. He is smiling warmly in a bright, modern office setting with soft, high-key lighting that emphasizes a clinical and professional aesthetic. The style is minimalist and high-end, mirroring a premium health and wellness service identity."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdfCh_qDxpiA8r8hAfxSFg29EmOCBTJ4RyEDQ5nNUW7Cbvz5_mrRNsdjk0xtfaTLlNicRajmY98RZ5EfNbqeTLt0j_H8Z9-BvfTgB_vVpgv3X--CbtGIJZD8Id2wSr36ezPLZpGT8m8Gz_tM8A0f6y6twHR4lJPZPuii61hhF6V5GLOfA4r8ZjosfgWGNIJtSk2dIHREKgNWms8TDIbL7JOcvMOd7iiZH69mi2ncNk1bxaAQu1PJiEe56MfS1zJlo9WKSzxtwugyxc"
-            />
-            <div>
-              <p class="font-label-md text-label-md text-on-surface-variant">
-                Technician
-              </p>
-              <p
-                class="font-body-md text-body-md font-semibold text-on-surface"
-              >
-                Marcus Thorne
-              </p>
-            </div>
-          </div>
-          <div class="flex flex-col gap-1 pl-gutter">
+          <div class="flex flex-col gap-1 pl-gutter border-l border-outline-variant/30">
             <p class="font-label-md text-label-md text-on-surface-variant">
-              Estimated Duration
+              Status
             </p>
             <p
+              id="booking-status"
               class="font-body-md text-body-md font-semibold text-on-surface flex items-center gap-2"
             >
               <span
                 class="material-symbols-outlined text-[18px] text-on-tertiary-container"
                 >schedule</span
               >
-              3.5 Hours
+              Pending Confirmation
             </p>
           </div>
         </div>
@@ -539,13 +518,28 @@
                 booking.name;
               document.getElementById("customer-address").innerHTML =
                 `${booking.address}<br/>${booking.city}, ${booking.state} ${booking.zipCode}`;
-              document.getElementById("booking-date").textContent = new Date(
-                booking.submittedAt,
-              ).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              });
+
+              const statusLabelEl = document.getElementById("status-label");
+              const statusIconEl = document.getElementById("status-icon");
+              const bookingDateEl = document.getElementById("booking-date");
+              const bookingStatusEl = document.getElementById("booking-status");
+
+              if (booking.scheduledDate) {
+                const formattedDate = new Date(booking.scheduledDate).toLocaleDateString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                });
+                bookingDateEl.textContent = formattedDate;
+                bookingStatusEl.innerHTML = `<span class="material-symbols-outlined text-[18px] text-on-tertiary-container">check_circle</span> Confirmed`;
+                statusLabelEl.textContent = "Visit Scheduled";
+              } else {
+                bookingDateEl.textContent = "To be confirmed";
+                bookingStatusEl.innerHTML = `<span class="material-symbols-outlined text-[18px] text-on-surface-variant">schedule</span> Pending Confirmation`;
+                statusLabelEl.textContent = "Booking Received";
+                statusIconEl.textContent = "schedule";
+              }
 
               const serviceList = document.getElementById("service-list");
               serviceList.innerHTML = "";

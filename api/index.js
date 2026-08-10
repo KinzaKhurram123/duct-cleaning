@@ -185,7 +185,7 @@ app.put('/api/content', requireAdmin, async (req, res) => {
 app.get('/api/bookings/:id/public', async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id).select(
-      'name service address city state zipCode status submittedAt'
+      'name service address city state zipCode status submittedAt scheduledDate'
     );
     if (!booking) {
       return res.status(404).json({ success: false, message: 'Booking not found' });
@@ -349,7 +349,7 @@ app.post('/api/submit-booking', async (req, res) => {
     const customerMailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: '✅ Booking Confirmation - Pacific Duct Systems',
+      subject: '📋 Booking Received - Pacific Duct Systems',
       html: `
         <!DOCTYPE html>
         <html>
@@ -368,7 +368,7 @@ app.post('/api/submit-booking', async (req, res) => {
         <body>
           <div class="container">
             <div class="header">
-              <h1>✅ Booking Confirmed!</h1>
+              <h1>📋 Booking Received!</h1>
               <p>Thank you for choosing Pacific Duct Systems</p>
             </div>
             <div class="content">
@@ -378,7 +378,7 @@ app.post('/api/submit-booking', async (req, res) => {
               </div>
               <div class="message">
                 <h2>Hello ${name},</h2>
-                <p>Thank you for your booking request! We've received your information and our team will contact you shortly to confirm your appointment.</p>
+                <p>Thank you for your booking request! We've received your information and our team is reviewing it now.</p>
 
                 <h3>Your Booking Details:</h3>
                 <p><strong>Service:</strong> ${service}</p>
@@ -389,7 +389,7 @@ app.post('/api/submit-booking', async (req, res) => {
                 <p><strong>Phone:</strong> ${phone}</p>
                 ${message ? `<p><strong>Message:</strong> ${message}</p>` : ''}
 
-                <p>Our team typically responds within 24 hours during business days.</p>
+                <p><strong>What's next?</strong> We'll send you a follow-up email with your confirmed visit date and further details shortly.</p>
 
                 <p>If you have any urgent questions, please don't hesitate to contact us directly.</p>
               </div>
@@ -466,6 +466,89 @@ app.patch('/api/bookings/:id/status', requireAdmin, async (req, res) => {
       success: false,
       message: 'Failed to update booking'
     });
+  }
+});
+
+// Schedule a booking's visit date (Admin endpoint) — sets the date, marks
+// the booking confirmed, and emails the customer with the date + a link
+// to their booking confirmation page (no technician details are sent).
+app.patch('/api/bookings/:id/schedule', requireAdmin, async (req, res) => {
+  try {
+    const { scheduledDate } = req.body;
+
+    if (!scheduledDate || isNaN(new Date(scheduledDate).getTime())) {
+      return res.status(400).json({ success: false, message: 'A valid scheduledDate is required' });
+    }
+
+    const booking = await Booking.findByIdAndUpdate(
+      req.params.id,
+      { scheduledDate: new Date(scheduledDate), status: 'confirmed' },
+      { new: true }
+    );
+
+    if (!booking) {
+      return res.status(404).json({ success: false, message: 'Booking not found' });
+    }
+
+    const siteUrl = allowedOrigins[0] || '';
+    const confirmationLink = siteUrl ? `${siteUrl}/confrimBooking.html?id=${booking._id}` : '';
+    const formattedDate = new Date(booking.scheduledDate).toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: booking.email,
+        subject: '📅 Your Visit is Scheduled - Pacific Duct Systems',
+        html: `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <style>
+              body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+              .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+              .header { background: linear-gradient(135deg, #003366 0%, #001e40 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+              .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+              .date-badge { background: #1facb6; color: white; padding: 16px; border-radius: 8px; text-align: center; margin: 20px 0; font-size: 18px; font-weight: bold; }
+              .button { display: inline-block; padding: 12px 30px; background: #003366; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; }
+              .footer { text-align: center; margin-top: 20px; color: #888; font-size: 12px; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="header">
+                <h1>📅 Your Visit is Scheduled!</h1>
+                <p>Pacific Duct Systems</p>
+              </div>
+              <div class="content">
+                <p>Hello ${booking.name},</p>
+                <p>Good news — your <strong>${booking.service}</strong> appointment has been confirmed.</p>
+                <div class="date-badge">Our team will arrive on ${formattedDate}</div>
+                <p><strong>Service Address:</strong><br>${booking.address}<br>${booking.city}, ${booking.state} ${booking.zipCode}</p>
+                ${confirmationLink ? `<p style="text-align:center;"><a class="button" href="${confirmationLink}">View Booking Details</a></p>` : ''}
+                <p>If you need to reschedule or have any questions, please contact us directly.</p>
+              </div>
+              <div class="footer">
+                <p>Pacific Duct Systems - Elite Air Purification</p>
+              </div>
+            </div>
+          </body>
+          </html>
+        `
+      });
+      console.log('✅ Scheduling email sent to', booking.email);
+    } catch (emailError) {
+      console.error('⚠️ Booking scheduled but email failed to send:', emailError.message);
+    }
+
+    res.json({ success: true, message: 'Booking scheduled and customer notified', booking });
+  } catch (error) {
+    console.error('Error scheduling booking:', error);
+    res.status(500).json({ success: false, message: 'Failed to schedule booking' });
   }
 });
 
