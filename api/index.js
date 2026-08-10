@@ -15,7 +15,11 @@ const { requireAdmin, JWT_SECRET } = require('./middleware/auth');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const allowedOrigins = [process.env.FRONTEND_URL].filter(Boolean);
+// FRONTEND_URL can be a single URL or a comma-separated list (e.g. website + admin panel domains)
+const allowedOrigins = (process.env.FRONTEND_URL || '')
+  .split(',')
+  .map((url) => url.trim().replace(/\/$/, ''))
+  .filter(Boolean);
 
 app.use(cors({
   origin: (origin, callback) => {
