@@ -57,16 +57,33 @@ async function ensureDefaultAdmin() {
   }
 }
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => {
-  console.log('✅ MongoDB Connected Successfully!');
-  ensureDefaultAdmin();
-})
-.catch((err) => {
-  console.error('❌ MongoDB Connection Error:', err.message);
+// Serverless-safe MongoDB connection: cache the connection promise across
+// invocations of the same warm Lambda instance instead of reconnecting
+// (and racing with incoming requests) on every cold start.
+let cachedConnection = global._mongooseConnection;
+if (!cachedConnection) {
+  cachedConnection = global._mongooseConnection = mongoose
+    .connect(process.env.MONGODB_URI)
+    .then((conn) => {
+      console.log('✅ MongoDB Connected Successfully!');
+      ensureDefaultAdmin();
+      return conn;
+    })
+    .catch((err) => {
+      console.error('❌ MongoDB Connection Error:', err.message);
+      global._mongooseConnection = null;
+      throw err;
+    });
+}
+
+// Make sure every request waits for the connection before hitting a route
+app.use(async (req, res, next) => {
+  try {
+    await cachedConnection;
+    next();
+  } catch (err) {
+    res.status(503).json({ success: false, message: 'Database unavailable, please try again shortly' });
+  }
 });
 
 // Email configuration
